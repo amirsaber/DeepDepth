@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/dry-depth-test',
+	//db: 'mongodb://localhost/dry-depth-test',
+	db: 'mongodb://admin:Amir271887@kahana.mongohq.com:10063/app27427657',
 	port: 3001,
 	app: {
 		title: 'Dry Depth - Test Environment'

@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/dry-depth-dev',
+	//db: 'mongodb://localhost/dry-depth-dev',
+	db: 'mongodb://admin:Amir271887@kahana.mongohq.com:10063/app27427657',
 	app: {
 		title: 'Dry Depth - Development Environment'
 	},
