@@ -2,7 +2,7 @@
 
 module.exports = {
 	//db: 'mongodb://localhost/dry-depth-test',
-	db: 'mongodb://admin:Amir271887@kahana.mongohq.com:10063/app27427657',
+	db: 'mongodb://heroku:svNj_vYR-jwgmQdTsGVQk9oh4DhDPl2HVCfDLV0ti5mMxdQFmlmMgsPlcd-7W_7vNGBGMzWk2bE0u4S-zm4L-g@kahana.mongohq.com:10063/app27427657',
 	port: 3001,
 	app: {
 		title: 'Dry Depth - Test Environment'
