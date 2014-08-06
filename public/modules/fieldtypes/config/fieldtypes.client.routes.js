@@ -7,7 +7,7 @@ function($stateProvider) {
     // Queries state routing
     $stateProvider.
     state('listFieldtypes', {
-        url: '/fieldtpes',
+        url: '/fieldtypes',
         templateUrl: 'modules/fieldtypes/views/list-fieldtypes.client.view.html'
     }).
     state('createFieldType', {

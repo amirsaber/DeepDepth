@@ -5,9 +5,9 @@ module.exports = function(app) {
     var fieldtypes = require('../../app/controllers/fieldtypes');
 
     //Fieldtype Routes
-    app.route('/fieldtypes').get(fieldtypes.list).post(users.requiresLogin, fieldtypes.create);
+    app.route('/fieldtypes').get(fieldtypes.list).post(users.requiresLogin, users.hasAuthorization(['admin']), fieldtypes.create);
     
-    app.route('/fieldtypes/:fieldtypeId').get(fieldtypes.read).put(users.requiresLogin, fieldtypes.hasAuthorization, fieldtypes.update).delete(users.requiresLogin, fieldtypes.hasAuthorization, fieldtypes.delete);
+    app.route('/fieldtypes/:fieldtypeId').get(fieldtypes.read).put(users.requiresLogin, users.hasAuthorization(['admin']), fieldtypes.update).delete(users.requiresLogin, users.hasAuthorization(['admin']), fieldtypes.delete);
     
     // Finish by binding the Fieldtype middleware
 	app.param('fieldtypeId', fieldtypes.fieldtypeByID);

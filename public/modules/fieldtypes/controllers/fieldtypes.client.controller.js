@@ -10,7 +10,9 @@ function($scope, $stateParams, $location, Authentication, Fieldtypes) {
     $scope.create = function() {
         // Create new Fieldtype object
         var fieldtype = new Fieldtypes({
-            name: this.name
+            name: this.name,
+            description: this.description,
+            type: this.type
         });
 
         // Redirect after save
@@ -22,6 +24,8 @@ function($scope, $stateParams, $location, Authentication, Fieldtypes) {
 
         // Clear form fields
         this.name = '';
+        this.description = '';
+        this.type = '';
     };
 
     // Remove existing Fieldtype
