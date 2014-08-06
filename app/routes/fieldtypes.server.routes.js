@@ -1,6 +1,6 @@
 'use strict';
 
-module.export = function(app) {
+module.exports = function(app) {
     var users = require('../../app/controllers/users');
     var fieldtypes = require('../../app/controllers/fieldtypes');
 

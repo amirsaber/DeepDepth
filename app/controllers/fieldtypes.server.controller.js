@@ -5,7 +5,7 @@
  */
 
 var mongoose = require('mongoose'),
-    Fieldtype = mongoose.model('FieldType'),
+    Fieldtype = mongoose.model('Fieldtype'),
     _ = require('lodash');
 
 /**

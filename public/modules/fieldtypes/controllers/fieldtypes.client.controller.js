@@ -47,7 +47,7 @@ function($scope, $stateParams, $location, Authentication, Fieldtypes) {
         var fieldtype = $scope.fieldtype;
 
         fieldtype.$update(function() {
-            $location.path('fieldtypes/' + query._id);
+            $location.path('fieldtypes/' + fieldtype._id);
         }, function(errorResponse) {
             $scope.error = errorResponse.data.message;
         });
@@ -55,7 +55,7 @@ function($scope, $stateParams, $location, Authentication, Fieldtypes) {
 
     // Find a list of Fieldtypes
     $scope.find = function() {
-        $scope.fieldtypes = Fieldtypes.fieldtype();
+        $scope.fieldtypes = Fieldtypes.query();
     };
 
     // Find existing Fieldtype
