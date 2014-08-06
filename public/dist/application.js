@@ -46,6 +46,8 @@ angular.element(document).ready(function () {
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');'use strict';
 // Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('fieldtypes');'use strict';
+// Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('queries');'use strict';
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('users');'use strict';
@@ -219,7 +221,100 @@ angular.module('core').service('Menus', [function () {
     //Adding the topbar menu
     this.addMenu('topbar');
   }]);'use strict';
-// Configuring the Articles module
+// Configuring the Fieldtypes module
+angular.module('fieldtypes').run([
+  'Menus',
+  function (Menus) {
+    // Set top bar menu items
+    Menus.addMenuItem('topbar', 'Fieldtypes', 'fieldtypes', 'dropdown', '/fieldtypes(/create)?');
+    Menus.addSubMenuItem('topbar', 'fieldtypes', 'List Fieldtypes', 'fieldtypes');
+    Menus.addSubMenuItem('topbar', 'fieldtypes', 'New Fieldtype', 'fieldtypes/create');
+  }
+]);'use strict';
+//Setting up route
+angular.module('fieldtypes').config([
+  '$stateProvider',
+  function ($stateProvider) {
+    // Queries state routing
+    $stateProvider.state('listFieldtypes', {
+      url: '/fieldtpes',
+      templateUrl: 'modules/fieldtypes/views/list-fieldtypes.client.view.html'
+    }).state('createFieldType', {
+      url: '/fieldtypes/create',
+      templateUrl: 'modules/fieldtypes/views/create-fieldtype.client.view.html'
+    }).state('viewFieldtype', {
+      url: '/fieldtypes/:fieldtypeId',
+      templateUrl: 'modules/fieldtypes/views/view-fieldtype.client.view.html'
+    }).state('editFieldtype', {
+      url: '/fieldtypes/:fieldtypeId/edit',
+      templateUrl: 'modules/fieldtypes/views/edit-fieldtype.client.view.html'
+    });
+  }
+]);'use strict';
+// Fieldtypes controller
+angular.module('fieldtypes').controller('FieldtypesController', [
+  '$scope',
+  '$stateParams',
+  '$location',
+  'Authentication',
+  'Fieldtypes',
+  function ($scope, $stateParams, $location, Authentication, Fieldtypes) {
+    $scope.authentication = Authentication;
+    // Create new FieldType
+    $scope.create = function () {
+      // Create new Fieldtype object
+      var fieldtype = new Fieldtypes({ name: this.name });
+      // Redirect after save
+      fieldtype.$save(function (response) {
+        $location.path('fieldtypes/' + response._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+      // Clear form fields
+      this.name = '';
+    };
+    // Remove existing Fieldtype
+    $scope.remove = function (fieldtype) {
+      if (fieldtype) {
+        fieldtype.$remove();
+        for (var i in $scope.fieldtypes) {
+          if ($scope.fieldtypes[i] === fieldtype) {
+            $scope.fieldtypes.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.fieldtype.$remove(function () {
+          $location.path('fieldtype');
+        });
+      }
+    };
+    // Update existing FieldType
+    $scope.update = function () {
+      var fieldtype = $scope.fieldtype;
+      fieldtype.$update(function () {
+        $location.path('fieldtypes/' + fieldtype._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Find a list of Fieldtypes
+    $scope.find = function () {
+      $scope.fieldtypes = Fieldtypes.query();
+    };
+    // Find existing Fieldtype
+    $scope.findOne = function () {
+      $scope.fieldtype = Fieldtypes.get({ fieldtypeId: $stateParams.fieldtypeId });
+    };
+  }
+]);'use strict';
+//Fieldtype service used to communicate Fieldtype REST endpoints
+angular.module('fieldtypes').factory('Fieldtypes', [
+  '$resource',
+  function ($resource) {
+    return $resource('fieldtypes/:fieldtypeId', { fieldtypeId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);'use strict';
+// Configuring the Queries module
 angular.module('queries').run([
   'Menus',
   function (Menus) {
