@@ -2,7 +2,7 @@
 
 module.exports = {
 	
-	db: 'mongodb://heroku:svNj_vYR-jwgmQdTsGVQk9oh4DhDPl2HVCfDLV0ti5mMxdQFmlmMgsPlcd-7W_7vNGBGMzWk2bE0u4S-zm4L-g@kahana.mongohq.com:10063/app27427657',
+	db: process.env.MONGOLAB_URI || 'mongodb://heroku_app27427657:su3kqpulf7e6qodavo01jj9an4@ds031347.mongolab.com:31347/heroku_app27427657',
 	port: 3001,
 	app: {
 		title: 'Dry Depth - Test Environment'
