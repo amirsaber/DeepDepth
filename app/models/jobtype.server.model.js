@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
  */
 var validateArrayLength = function(value) {
     return value.length > 0;
-}
+};
 
 /**
  * Jobtype Schema

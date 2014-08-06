@@ -120,4 +120,4 @@ describe('Jobtype Model Unit Tests:', function() {
         User.remove().exec();
         done();
     });
-})
+});

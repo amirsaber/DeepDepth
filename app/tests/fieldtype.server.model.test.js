@@ -51,7 +51,7 @@ describe('FieldType Model Unit Tests:', function() {
             Fieldtype.find({}, function(err, fieldtypes) {
                 fieldtypes.should.have.length(0);
                 done();
-            })
+            });
         });
 
         it('should be able to save without problems', function(done) {
@@ -108,4 +108,4 @@ describe('FieldType Model Unit Tests:', function() {
 
 		done();
 	});
-})
+});
