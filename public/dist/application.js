@@ -226,7 +226,7 @@ angular.module('fieldtypes').run([
   'Menus',
   function (Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Fieldtypes', 'fieldtypes', 'dropdown', '/fieldtypes(/create)?');
+    Menus.addMenuItem('topbar', 'Field types', 'fieldtypes', 'dropdown', '/fieldtypes(/create)?', false, ['admin']);
     Menus.addSubMenuItem('topbar', 'fieldtypes', 'List Fieldtypes', 'fieldtypes');
     Menus.addSubMenuItem('topbar', 'fieldtypes', 'New Fieldtype', 'fieldtypes/create');
   }
@@ -237,7 +237,7 @@ angular.module('fieldtypes').config([
   function ($stateProvider) {
     // Queries state routing
     $stateProvider.state('listFieldtypes', {
-      url: '/fieldtpes',
+      url: '/fieldtypes',
       templateUrl: 'modules/fieldtypes/views/list-fieldtypes.client.view.html'
     }).state('createFieldType', {
       url: '/fieldtypes/create',
@@ -263,7 +263,11 @@ angular.module('fieldtypes').controller('FieldtypesController', [
     // Create new FieldType
     $scope.create = function () {
       // Create new Fieldtype object
-      var fieldtype = new Fieldtypes({ name: this.name });
+      var fieldtype = new Fieldtypes({
+          name: this.name,
+          description: this.description,
+          type: this.type
+        });
       // Redirect after save
       fieldtype.$save(function (response) {
         $location.path('fieldtypes/' + response._id);
@@ -272,6 +276,8 @@ angular.module('fieldtypes').controller('FieldtypesController', [
       });
       // Clear form fields
       this.name = '';
+      this.description = '';
+      this.type = '';
     };
     // Remove existing Fieldtype
     $scope.remove = function (fieldtype) {
