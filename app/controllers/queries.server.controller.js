@@ -4,33 +4,9 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+	errorHandler = require('./errors'),
 	Query = mongoose.model('Query'),
 	_ = require('lodash');
-
-/**
- * Get the error message from error object
- */
-var getErrorMessage = function(err) {
-	var message = '';
-
-	if (err.code) {
-		switch (err.code) {
-		case 11000:
-		case 11001:
-			message = 'Query already exists';
-			break;
-		default:
-			message = 'Something went wrong';
-		}
-	}
-	else {
-		for (var errName in err.errors) {
-			if (err.errors[errName].message) message = err.errors[errName].message;
-		}
-	}
-
-	return message;
-};
 
 /**
  * Create a Query
@@ -41,11 +17,10 @@ exports.create = function(req, res) {
 
 	query.save(function(err) {
 		if (err) {
-			return res.send(400, {
-				message: getErrorMessage(err)
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
 			});
-		}
-		else {
+		} else {
 			res.jsonp(query);
 		}
 	});
@@ -62,17 +37,16 @@ exports.read = function(req, res) {
  * Update a Query
  */
 exports.update = function(req, res) {
-	var query = req.query;
+	var query = req.query ;
 
-	query = _.extend(query, req.body);
+	query = _.extend(query , req.body);
 
 	query.save(function(err) {
 		if (err) {
-			return res.send(400, {
-				message: getErrorMessage(err)
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
 			});
-		}
-		else {
+		} else {
 			res.jsonp(query);
 		}
 	});
@@ -82,15 +56,14 @@ exports.update = function(req, res) {
  * Delete an Query
  */
 exports.delete = function(req, res) {
-	var query = req.query;
+	var query = req.query ;
 
 	query.remove(function(err) {
 		if (err) {
-			return res.send(400, {
-				message: getErrorMessage(err)
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
 			});
-		}
-		else {
+		} else {
 			res.jsonp(query);
 		}
 	});
@@ -99,14 +72,12 @@ exports.delete = function(req, res) {
 /**
  * List of Queries
  */
-exports.list = function(req, res) {
-	Query.find().sort('-created').populate('user', 'displayName').exec(function(err, queries) {
+exports.list = function(req, res) { Query.find().sort('-created').populate('user', 'displayName').exec(function(err, queries) {
 		if (err) {
-			return res.send(400, {
-				message: getErrorMessage(err)
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
 			});
-		}
-		else {
+		} else {
 			res.jsonp(queries);
 		}
 	});
@@ -115,11 +86,10 @@ exports.list = function(req, res) {
 /**
  * Query middleware
  */
-exports.queryByID = function(req, res, next, id) {
-	Query.findById(id).populate('user', 'displayName').exec(function(err, query) {
+exports.queryByID = function(req, res, next, id) { Query.findById(id).populate('user', 'displayName').exec(function(err, query) {
 		if (err) return next(err);
-		if (!query) return next(new Error('Failed to load Query ' + id));
-		req.query = query;
+		if (! query) return next(new Error('Failed to load Query ' + id));
+		req.query = query ;
 		next();
 	});
 };
@@ -129,7 +99,7 @@ exports.queryByID = function(req, res, next, id) {
  */
 exports.hasAuthorization = function(req, res, next) {
 	if (req.query.user.id !== req.user.id) {
-		return res.send(403, 'User is not authorized');
+		return res.status(403).send('User is not authorized');
 	}
 	next();
 };

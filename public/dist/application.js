@@ -2,7 +2,7 @@
 // Init the application configuration module for AngularJS application
 var ApplicationConfiguration = function () {
     // Init module configuration options
-    var applicationModuleName = 'dry-depth';
+    var applicationModuleName = 'deepdepth';
     var applicationModuleVendorDependencies = [
         'ngResource',
         'ngCookies',
@@ -14,9 +14,9 @@ var ApplicationConfiguration = function () {
         'ui.utils'
       ];
     // Add a new vertical module
-    var registerModule = function (moduleName) {
+    var registerModule = function (moduleName, dependencies) {
       // Create angular module
-      angular.module(moduleName, []);
+      angular.module(moduleName, dependencies || []);
       // Add the module to the AngularJS configuration file
       angular.module(applicationModuleName).requires.push(moduleName);
     };
@@ -47,6 +47,8 @@ angular.element(document).ready(function () {
 ApplicationConfiguration.registerModule('core');'use strict';
 // Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('fieldtypes');'use strict';
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('jobtypes');'use strict';
 // Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('queries');'use strict';
 // Use Applicaion configuration module to register a new module
@@ -93,16 +95,20 @@ angular.module('core').controller('HomeController', [
 //Menu service used for managing  menus
 angular.module('core').service('Menus', [function () {
     // Define a set of default roles
-    this.defaultRoles = ['user'];
+    this.defaultRoles = ['*'];
     // Define the menus object
     this.menus = {};
     // A private function for rendering decision 
     var shouldRender = function (user) {
       if (user) {
-        for (var userRoleIndex in user.roles) {
-          for (var roleIndex in this.roles) {
-            if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
-              return true;
+        if (!!~this.roles.indexOf('*')) {
+          return true;
+        } else {
+          for (var userRoleIndex in user.roles) {
+            for (var roleIndex in this.roles) {
+              if (this.roles[roleIndex] === user.roles[userRoleIndex]) {
+                return true;
+              }
             }
           }
         }
@@ -151,7 +157,7 @@ angular.module('core').service('Menus', [function () {
       delete this.menus[menuId];
     };
     // Add menu item object
-    this.addMenuItem = function (menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles) {
+    this.addMenuItem = function (menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position) {
       // Validate that the menu exists
       this.validateMenuExistance(menuId);
       // Push new menu item
@@ -161,8 +167,9 @@ angular.module('core').service('Menus', [function () {
         menuItemType: menuItemType || 'item',
         menuItemClass: menuItemType,
         uiRoute: menuItemUIRoute || '/' + menuItemURL,
-        isPublic: isPublic || this.menus[menuId].isPublic,
-        roles: roles || this.defaultRoles,
+        isPublic: isPublic === null || typeof isPublic === 'undefined' ? this.menus[menuId].isPublic : isPublic,
+        roles: roles === null || typeof roles === 'undefined' ? this.menus[menuId].roles : roles,
+        position: position || 0,
         items: [],
         shouldRender: shouldRender
       });
@@ -170,7 +177,7 @@ angular.module('core').service('Menus', [function () {
       return this.menus[menuId];
     };
     // Add submenu item object
-    this.addSubMenuItem = function (menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles) {
+    this.addSubMenuItem = function (menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles, position) {
       // Validate that the menu exists
       this.validateMenuExistance(menuId);
       // Search for menu item
@@ -181,8 +188,9 @@ angular.module('core').service('Menus', [function () {
             title: menuItemTitle,
             link: menuItemURL,
             uiRoute: menuItemUIRoute || '/' + menuItemURL,
-            isPublic: isPublic || this.menus[menuId].isPublic,
-            roles: roles || this.defaultRoles,
+            isPublic: isPublic === null || typeof isPublic === 'undefined' ? this.menus[menuId].items[itemIndex].isPublic : isPublic,
+            roles: roles === null || typeof roles === 'undefined' ? this.menus[menuId].items[itemIndex].roles : roles,
+            position: position || 0,
             shouldRender: shouldRender
           });
         }
@@ -221,12 +229,12 @@ angular.module('core').service('Menus', [function () {
     //Adding the topbar menu
     this.addMenu('topbar');
   }]);'use strict';
-// Configuring the Fieldtypes module
+// Configuring the Articles module
 angular.module('fieldtypes').run([
   'Menus',
   function (Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Field types', 'fieldtypes', 'dropdown', '/fieldtypes(/create)?', false, ['admin']);
+    Menus.addMenuItem('topbar', 'Fieldtypes', 'fieldtypes', 'dropdown', '/fieldtypes(/create)?');
     Menus.addSubMenuItem('topbar', 'fieldtypes', 'List Fieldtypes', 'fieldtypes');
     Menus.addSubMenuItem('topbar', 'fieldtypes', 'New Fieldtype', 'fieldtypes/create');
   }
@@ -235,11 +243,11 @@ angular.module('fieldtypes').run([
 angular.module('fieldtypes').config([
   '$stateProvider',
   function ($stateProvider) {
-    // Queries state routing
+    // Fieldtypes state routing
     $stateProvider.state('listFieldtypes', {
       url: '/fieldtypes',
       templateUrl: 'modules/fieldtypes/views/list-fieldtypes.client.view.html'
-    }).state('createFieldType', {
+    }).state('createFieldtype', {
       url: '/fieldtypes/create',
       templateUrl: 'modules/fieldtypes/views/create-fieldtype.client.view.html'
     }).state('viewFieldtype', {
@@ -260,24 +268,18 @@ angular.module('fieldtypes').controller('FieldtypesController', [
   'Fieldtypes',
   function ($scope, $stateParams, $location, Authentication, Fieldtypes) {
     $scope.authentication = Authentication;
-    // Create new FieldType
+    // Create new Fieldtype
     $scope.create = function () {
       // Create new Fieldtype object
-      var fieldtype = new Fieldtypes({
-          name: this.name,
-          description: this.description,
-          type: this.type
-        });
+      var fieldtype = new Fieldtypes({ name: this.name });
       // Redirect after save
       fieldtype.$save(function (response) {
         $location.path('fieldtypes/' + response._id);
+        // Clear form fields
+        $scope.name = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
-      // Clear form fields
-      this.name = '';
-      this.description = '';
-      this.type = '';
     };
     // Remove existing Fieldtype
     $scope.remove = function (fieldtype) {
@@ -290,11 +292,11 @@ angular.module('fieldtypes').controller('FieldtypesController', [
         }
       } else {
         $scope.fieldtype.$remove(function () {
-          $location.path('fieldtype');
+          $location.path('fieldtypes');
         });
       }
     };
-    // Update existing FieldType
+    // Update existing Fieldtype
     $scope.update = function () {
       var fieldtype = $scope.fieldtype;
       fieldtype.$update(function () {
@@ -313,14 +315,107 @@ angular.module('fieldtypes').controller('FieldtypesController', [
     };
   }
 ]);'use strict';
-//Fieldtype service used to communicate Fieldtype REST endpoints
+//Fieldtypes service used to communicate Fieldtypes REST endpoints
 angular.module('fieldtypes').factory('Fieldtypes', [
   '$resource',
   function ($resource) {
     return $resource('fieldtypes/:fieldtypeId', { fieldtypeId: '@_id' }, { update: { method: 'PUT' } });
   }
 ]);'use strict';
-// Configuring the Queries module
+// Configuring the Articles module
+angular.module('jobtypes').run([
+  'Menus',
+  function (Menus) {
+    // Set top bar menu items
+    Menus.addMenuItem('topbar', 'Jobtypes', 'jobtypes', 'dropdown', '/jobtypes(/create)?');
+    Menus.addSubMenuItem('topbar', 'jobtypes', 'List Jobtypes', 'jobtypes');
+    Menus.addSubMenuItem('topbar', 'jobtypes', 'New Jobtype', 'jobtypes/create');
+  }
+]);'use strict';
+//Setting up route
+angular.module('jobtypes').config([
+  '$stateProvider',
+  function ($stateProvider) {
+    // Jobtypes state routing
+    $stateProvider.state('listJobtypes', {
+      url: '/jobtypes',
+      templateUrl: 'modules/jobtypes/views/list-jobtypes.client.view.html'
+    }).state('createJobtype', {
+      url: '/jobtypes/create',
+      templateUrl: 'modules/jobtypes/views/create-jobtype.client.view.html'
+    }).state('viewJobtype', {
+      url: '/jobtypes/:jobtypeId',
+      templateUrl: 'modules/jobtypes/views/view-jobtype.client.view.html'
+    }).state('editJobtype', {
+      url: '/jobtypes/:jobtypeId/edit',
+      templateUrl: 'modules/jobtypes/views/edit-jobtype.client.view.html'
+    });
+  }
+]);'use strict';
+// Jobtypes controller
+angular.module('jobtypes').controller('JobtypesController', [
+  '$scope',
+  '$stateParams',
+  '$location',
+  'Authentication',
+  'Jobtypes',
+  function ($scope, $stateParams, $location, Authentication, Jobtypes) {
+    $scope.authentication = Authentication;
+    // Create new Jobtype
+    $scope.create = function () {
+      // Create new Jobtype object
+      var jobtype = new Jobtypes({ name: this.name });
+      // Redirect after save
+      jobtype.$save(function (response) {
+        $location.path('jobtypes/' + response._id);
+        // Clear form fields
+        $scope.name = '';
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Remove existing Jobtype
+    $scope.remove = function (jobtype) {
+      if (jobtype) {
+        jobtype.$remove();
+        for (var i in $scope.jobtypes) {
+          if ($scope.jobtypes[i] === jobtype) {
+            $scope.jobtypes.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.jobtype.$remove(function () {
+          $location.path('jobtypes');
+        });
+      }
+    };
+    // Update existing Jobtype
+    $scope.update = function () {
+      var jobtype = $scope.jobtype;
+      jobtype.$update(function () {
+        $location.path('jobtypes/' + jobtype._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Find a list of Jobtypes
+    $scope.find = function () {
+      $scope.jobtypes = Jobtypes.query();
+    };
+    // Find existing Jobtype
+    $scope.findOne = function () {
+      $scope.jobtype = Jobtypes.get({ jobtypeId: $stateParams.jobtypeId });
+    };
+  }
+]);'use strict';
+//Jobtypes service used to communicate Jobtypes REST endpoints
+angular.module('jobtypes').factory('Jobtypes', [
+  '$resource',
+  function ($resource) {
+    return $resource('jobtypes/:jobtypeId', { jobtypeId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);'use strict';
+// Configuring the Articles module
 angular.module('queries').run([
   'Menus',
   function (Menus) {
@@ -366,11 +461,11 @@ angular.module('queries').controller('QueriesController', [
       // Redirect after save
       query.$save(function (response) {
         $location.path('queries/' + response._id);
+        // Clear form fields
+        $scope.name = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
-      // Clear form fields
-      this.name = '';
     };
     // Remove existing Query
     $scope.remove = function (query) {
@@ -459,10 +554,22 @@ angular.module('users').config([
       templateUrl: 'modules/users/views/settings/social-accounts.client.view.html'
     }).state('signup', {
       url: '/signup',
-      templateUrl: 'modules/users/views/signup.client.view.html'
+      templateUrl: 'modules/users/views/authentication/signup.client.view.html'
     }).state('signin', {
       url: '/signin',
-      templateUrl: 'modules/users/views/signin.client.view.html'
+      templateUrl: 'modules/users/views/authentication/signin.client.view.html'
+    }).state('forgot', {
+      url: '/password/forgot',
+      templateUrl: 'modules/users/views/password/forgot-password.client.view.html'
+    }).state('reset-invlaid', {
+      url: '/password/reset/invalid',
+      templateUrl: 'modules/users/views/password/reset-password-invalid.client.view.html'
+    }).state('reset-success', {
+      url: '/password/reset/success',
+      templateUrl: 'modules/users/views/password/reset-password-success.client.view.html'
+    }).state('reset', {
+      url: '/password/reset/:token',
+      templateUrl: 'modules/users/views/password/reset-password.client.view.html'
     });
   }
 ]);'use strict';
@@ -473,14 +580,14 @@ angular.module('users').controller('AuthenticationController', [
   'Authentication',
   function ($scope, $http, $location, Authentication) {
     $scope.authentication = Authentication;
-    //If user is signed in then redirect back home
+    // If user is signed in then redirect back home
     if ($scope.authentication.user)
       $location.path('/');
     $scope.signup = function () {
       $http.post('/auth/signup', $scope.credentials).success(function (response) {
-        //If successful we assign the response to the global user model
+        // If successful we assign the response to the global user model
         $scope.authentication.user = response;
-        //And redirect to the index page
+        // And redirect to the index page
         $location.path('/');
       }).error(function (response) {
         $scope.error = response.message;
@@ -488,10 +595,50 @@ angular.module('users').controller('AuthenticationController', [
     };
     $scope.signin = function () {
       $http.post('/auth/signin', $scope.credentials).success(function (response) {
-        //If successful we assign the response to the global user model
+        // If successful we assign the response to the global user model
         $scope.authentication.user = response;
-        //And redirect to the index page
+        // And redirect to the index page
         $location.path('/');
+      }).error(function (response) {
+        $scope.error = response.message;
+      });
+    };
+  }
+]);'use strict';
+angular.module('users').controller('PasswordController', [
+  '$scope',
+  '$stateParams',
+  '$http',
+  '$location',
+  'Authentication',
+  function ($scope, $stateParams, $http, $location, Authentication) {
+    $scope.authentication = Authentication;
+    //If user is signed in then redirect back home
+    if ($scope.authentication.user)
+      $location.path('/');
+    // Submit forgotten password account id
+    $scope.askForPasswordReset = function () {
+      $scope.success = $scope.error = null;
+      $http.post('/auth/forgot', $scope.credentials).success(function (response) {
+        // Show user success message and clear form
+        $scope.credentials = null;
+        $scope.success = response.message;
+      }).error(function (response) {
+        // Show user error message and clear form
+        $scope.credentials = null;
+        $scope.error = response.message;
+      });
+    };
+    // Change user password
+    $scope.resetUserPassword = function () {
+      $scope.success = $scope.error = null;
+      $http.post('/auth/reset/' + $stateParams.token, $scope.passwordDetails).success(function (response) {
+        // If successful show success message and clear form
+        $scope.passwordDetails = null;
+        // Attach user profile
+        Authentication.user = response;
+        // And redirect to the index page
+        $location.path('/password/reset/success');
       }).error(function (response) {
         $scope.error = response.message;
       });
@@ -532,15 +679,19 @@ angular.module('users').controller('SettingsController', [
       });
     };
     // Update a user profile
-    $scope.updateUserProfile = function () {
-      $scope.success = $scope.error = null;
-      var user = new Users($scope.user);
-      user.$update(function (response) {
-        $scope.success = true;
-        Authentication.user = response;
-      }, function (response) {
-        $scope.error = response.data.message;
-      });
+    $scope.updateUserProfile = function (isValid) {
+      if (isValid) {
+        $scope.success = $scope.error = null;
+        var user = new Users($scope.user);
+        user.$update(function (response) {
+          $scope.success = true;
+          Authentication.user = response;
+        }, function (response) {
+          $scope.error = response.data.message;
+        });
+      } else {
+        $scope.submitted = true;
+      }
     };
     // Change user password
     $scope.changeUserPassword = function () {

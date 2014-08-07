@@ -1,0 +1,19 @@
+<section data-ng-controller="JobtypesController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Jobtypes</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="jobtype in jobtypes" data-ng-href="#!/jobtypes/{{jobtype._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="jobtype.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="jobtype.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="jobtype.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!jobtypes.$resolved || jobtypes.length">
+    	No Jobtypes yet, why don't you <a href="/#!/jobtypes/create">create one</a>?
+    </div>
+</section>
