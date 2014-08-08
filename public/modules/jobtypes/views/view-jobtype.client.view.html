@@ -2,6 +2,22 @@
 	<div class="page-header">
 		<h1 data-ng-bind="jobtype.name"></h1>
 	</div>
+	<div class="list-group">
+		<p class="list-group-item-text">Address:
+			<span data-ng-bind="jobtype.address"></span>
+		</p>
+		<h5 class="list-group-item-heading">Fields:</h5>
+		<div class="list-group">
+			<div data-ng-repeat="field in jobtype.fields track by $index" class="list-group-item">
+				<h6 class="list-group-item-heading" data-ng-bind="field.name"></h6>
+				<p class="list-group-item-text">Description:
+					<span data-ng-bind="field.description"></span>
+					<br/>Type:
+					<span data-ng-bind="field.type"></span>
+				</p>
+			</div>
+		</div>
+	</div>
 	<div class="pull-right" data-ng-show="authentication.user._id == jobtype.user._id">
 		<a class="btn btn-primary" href="/#!/jobtypes/{{jobtype._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
@@ -11,10 +27,8 @@
 		</a>
 	</div>
 	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="jobtype.created | date:'mediumDate'"></span>
-			by
+		<em class="text-muted">Posted on
+			<span data-ng-bind="jobtype.created | date:'mediumDate'"></span>by
 			<span data-ng-bind="jobtype.user.displayName"></span>
 		</em>
 	</small>

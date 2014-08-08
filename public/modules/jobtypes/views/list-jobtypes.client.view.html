@@ -3,7 +3,8 @@
         <h1>Jobtypes</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="jobtype in jobtypes" data-ng-href="#!/jobtypes/{{jobtype._id}}" class="list-group-item">
+        <a data-ng-repeat="jobtype in jobtypes" data-ng-href="#!/jobtypes/{{jobtype._id}}"
+        class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="jobtype.created | date:'medium'"></span>
@@ -11,9 +12,19 @@
 				<span data-ng-bind="jobtype.user.displayName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="jobtype.name"></h4>
+			<p class="list-group-item-text">Address: <span data-ng-bind="jobtype.address"></span></p>
+			<h5 class="list-group-item-heading">Fields:</h5>
+			<div class="list-group">
+			    <div data-ng-repeat="field in jobtype.fields track by $index" class="list-group-item">
+			        <h6 class="list-group-item-heading" data-ng-bind="field.name"></h6>
+			        <p class="list-group-item-text">
+			            Description: <span data-ng-bind="field.description"></span><br/>
+			            Type: <span data-ng-bind="field.type"></span>
+			        </p>
+			    </div>
+			</div>
         </a>
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!jobtypes.$resolved || jobtypes.length">
-    	No Jobtypes yet, why don't you <a href="/#!/jobtypes/create">create one</a>?
-    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!jobtypes.$resolved || jobtypes.length">No Jobtypes yet, why don't you
+        <a href="/#!/jobtypes/create">create one</a>?</div>
 </section>

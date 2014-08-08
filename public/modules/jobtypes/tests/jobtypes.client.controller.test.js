@@ -50,17 +50,26 @@
 			});
 		}));
 
-		it('$scope.find() should create an array with at least one Jobtype object fetched from XHR', inject(function(Jobtypes) {
+		it('$scope.find() should create an array with at least one Jobtype object fetched from XHR', inject(function(Jobtypes, Fieldtypes) {
+			//Create sample Fieldtype using the Fieldtypes service
+			var sampleFieldtype = new Fieldtypes({
+				name: 'New Fieldtype name',
+				description: 'New Fieldtype description',
+				type: 'String'
+			});
 			// Create sample Jobtype using the Jobtypes service
 			var sampleJobtype = new Jobtypes({
-				name: 'New Jobtype'
+				name: 'New Jobtype name',
+				address: 'New Jobtype address',
+				fields: [sampleFieldtype]
 			});
 
 			// Create a sample Jobtypes array that includes the new Jobtype
 			var sampleJobtypes = [sampleJobtype];
 
 			// Set GET response
-			$httpBackend.expectGET('jobtypes').respond(sampleJobtypes);
+			$httpBackend.expectGET('fieldtypes').respond([sampleFieldtype]);
+			$httpBackend.expectGET('jobtypes').respond([sampleJobtype]);
 
 			// Run controller functionality
 			scope.find();
@@ -70,16 +79,25 @@
 			expect(scope.jobtypes).toEqualData(sampleJobtypes);
 		}));
 
-		it('$scope.findOne() should create an array with one Jobtype object fetched from XHR using a jobtypeId URL parameter', inject(function(Jobtypes) {
-			// Define a sample Jobtype object
+		it('$scope.findOne() should create an array with one Jobtype object fetched from XHR using a jobtypeId URL parameter', inject(function(Jobtypes, Fieldtypes) {
+			//Create sample Fieldtype using the Fieldtypes service
+			var sampleFieldtype = new Fieldtypes({
+				name: 'New Fieldtype name',
+				description: 'New Fieldtype description',
+				type: 'String'
+			});
+			// Create sample Jobtype using the Jobtypes service
 			var sampleJobtype = new Jobtypes({
-				name: 'New Jobtype'
+				name: 'New Jobtype name',
+				address: 'New Jobtype address',
+				fields: [sampleFieldtype]
 			});
 
 			// Set the URL parameter
 			$stateParams.jobtypeId = '525a8422f6d0f87f0e407a33';
 
 			// Set GET response
+			$httpBackend.expectGET('fieldtypes').respond([sampleFieldtype]);
 			$httpBackend.expectGET(/jobtypes\/([0-9a-fA-F]{24})$/).respond(sampleJobtype);
 
 			// Run controller functionality
@@ -90,25 +108,36 @@
 			expect(scope.jobtype).toEqualData(sampleJobtype);
 		}));
 
-		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Jobtypes) {
-			// Create a sample Jobtype object
+		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Jobtypes, Fieldtypes) {
+			//Create sample Fieldtype using the Fieldtypes service
+			var sampleFieldtype = new Fieldtypes({
+				name: 'New Fieldtype name',
+				description: 'New Fieldtype description',
+				type: 'String'
+			});
+			// Create sample Jobtype using the Jobtypes service
 			var sampleJobtypePostData = new Jobtypes({
-				name: 'New Jobtype'
+				name: 'New Jobtype',
+				fields: []
 			});
 
 			// Create a sample Jobtype response
 			var sampleJobtypeResponse = new Jobtypes({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Jobtype'
+				name: 'New Jobtype name',
+				address: 'New Jobtype address',
+				fields: [sampleFieldtype]
 			});
 
 			// Fixture mock form input values
 			scope.name = 'New Jobtype';
 
 			// Set POST response
+			$httpBackend.expectGET('fieldtypes').respond([sampleFieldtype]);
 			$httpBackend.expectPOST('jobtypes', sampleJobtypePostData).respond(sampleJobtypeResponse);
 
 			// Run controller functionality
+			scope.init();
 			scope.create();
 			$httpBackend.flush();
 
@@ -119,7 +148,13 @@
 			expect($location.path()).toBe('/jobtypes/' + sampleJobtypeResponse._id);
 		}));
 
-		it('$scope.update() should update a valid Jobtype', inject(function(Jobtypes) {
+		it('$scope.update() should update a valid Jobtype', inject(function(Jobtypes, Fieldtypes) {
+			//Create sample Fieldtype using the Fieldtypes service
+			var sampleFieldtype = new Fieldtypes({
+				name: 'New Fieldtype name',
+				description: 'New Fieldtype description',
+				type: 'String'
+			});
 			// Define a sample Jobtype put data
 			var sampleJobtypePutData = new Jobtypes({
 				_id: '525cf20451979dea2c000001',
@@ -130,6 +165,7 @@
 			scope.jobtype = sampleJobtypePutData;
 
 			// Set PUT response
+			$httpBackend.expectGET('fieldtypes').respond([sampleFieldtype]);
 			$httpBackend.expectPUT(/jobtypes\/([0-9a-fA-F]{24})$/).respond();
 
 			// Run controller functionality
@@ -140,7 +176,13 @@
 			expect($location.path()).toBe('/jobtypes/' + sampleJobtypePutData._id);
 		}));
 
-		it('$scope.remove() should send a DELETE request with a valid jobtypeId and remove the Jobtype from the scope', inject(function(Jobtypes) {
+		it('$scope.remove() should send a DELETE request with a valid jobtypeId and remove the Jobtype from the scope', inject(function(Jobtypes, Fieldtypes) {
+			//Create sample Fieldtype using the Fieldtypes service
+			var sampleFieldtype = new Fieldtypes({
+				name: 'New Fieldtype name',
+				description: 'New Fieldtype description',
+				type: 'String'
+			});
 			// Create new Jobtype object
 			var sampleJobtype = new Jobtypes({
 				_id: '525a8422f6d0f87f0e407a33'
@@ -150,6 +192,7 @@
 			scope.jobtypes = [sampleJobtype];
 
 			// Set expected DELETE response
+			$httpBackend.expectGET('fieldtypes').respond([sampleFieldtype]);
 			$httpBackend.expectDELETE(/jobtypes\/([0-9a-fA-F]{24})$/).respond(204);
 
 			// Run controller functionality

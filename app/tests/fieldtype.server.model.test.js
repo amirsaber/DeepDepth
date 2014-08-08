@@ -11,7 +11,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, fieldtype;
+var user, fieldtype, fieldtype2;
 
 /**
  * Unit tests
@@ -27,9 +27,18 @@ describe('Fieldtype Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
+		user.save(function() {
 			fieldtype = new Fieldtype({
 				name: 'Fieldtype Name',
+				description: 'Fieldtype Description',
+				type: 'String',
+				user: user
+			});
+
+			fieldtype2 = new Fieldtype({
+				name: 'Fieldtype Name',
+				description: 'Fieldtype Description',
+				type: 'String',
 				user: user
 			});
 
@@ -45,8 +54,43 @@ describe('Fieldtype Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
+		it('should be able to show an error when try to save without name', function(done) {
 			fieldtype.name = '';
+
+			return fieldtype.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save duplicate Fieldtype Name', function(done) {
+			fieldtype.save();
+			fieldtype2.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without description', function(done) {
+			fieldtype.description = '';
+
+			return fieldtype.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to show an error when try to save without type', function(done) {
+			fieldtype.type = '';
+
+			return fieldtype.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		
+		it('should be able to show an error when try to save without a valid type', function(done) {
+			fieldtype.type = 'foo';
 
 			return fieldtype.save(function(err) {
 				should.exist(err);
@@ -55,7 +99,7 @@ describe('Fieldtype Model Unit Tests:', function() {
 		});
 	});
 
-	afterEach(function(done) { 
+	afterEach(function(done) {
 		Fieldtype.remove().exec();
 		User.remove().exec();
 

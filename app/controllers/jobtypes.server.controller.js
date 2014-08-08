@@ -6,21 +6,35 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Jobtype = mongoose.model('Jobtype'),
+	Fieldtype = mongoose.model('Fieldtype'),
 	_ = require('lodash');
 
 /**
  * Create a Jobtype
  */
 exports.create = function(req, res) {
-	var jobtype = new Jobtype(req.body);
-	jobtype.user = req.user;
+	var fields = [];
+	req.body.fields.forEach(function(element){
+		var field = new Fieldtype(element);
+		fields.push(field);
+	});
+	var jobtype = new Jobtype({
+		name: req.body.name,
+		address: req.body.address,
+		user: req.user,
+		fields: fields
+	});
+	// var jobtype = new Jobtype(req.body);
+	// jobtype.user = req.user;
+	// jobtype.fields.push(fields);
 
 	jobtype.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(jobtype);
 		}
 	});
@@ -37,16 +51,17 @@ exports.read = function(req, res) {
  * Update a Jobtype
  */
 exports.update = function(req, res) {
-	var jobtype = req.jobtype ;
+	var jobtype = req.jobtype;
 
-	jobtype = _.extend(jobtype , req.body);
+	jobtype = _.extend(jobtype, req.body);
 
 	jobtype.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(jobtype);
 		}
 	});
@@ -56,14 +71,15 @@ exports.update = function(req, res) {
  * Delete an Jobtype
  */
 exports.delete = function(req, res) {
-	var jobtype = req.jobtype ;
+	var jobtype = req.jobtype;
 
 	jobtype.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(jobtype);
 		}
 	});
@@ -72,12 +88,14 @@ exports.delete = function(req, res) {
 /**
  * List of Jobtypes
  */
-exports.list = function(req, res) { Jobtype.find().sort('-created').populate('user', 'displayName').exec(function(err, jobtypes) {
+exports.list = function(req, res) {
+	Jobtype.find().sort('-created').populate('user', 'displayName').populate('fields').exec(function(err, jobtypes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(jobtypes);
 		}
 	});
@@ -86,10 +104,11 @@ exports.list = function(req, res) { Jobtype.find().sort('-created').populate('us
 /**
  * Jobtype middleware
  */
-exports.jobtypeByID = function(req, res, next, id) { Jobtype.findById(id).populate('user', 'displayName').exec(function(err, jobtype) {
+exports.jobtypeByID = function(req, res, next, id) {
+	Jobtype.findById(id).populate('user', 'displayName').populate('fields').exec(function(err, jobtype) {
 		if (err) return next(err);
-		if (! jobtype) return next(new Error('Failed to load Jobtype ' + id));
-		req.jobtype = jobtype ;
+		if (!jobtype) return next(new Error('Failed to load Jobtype ' + id));
+		req.jobtype = jobtype;
 		next();
 	});
 };

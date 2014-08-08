@@ -1,4 +1,4 @@
-<section data-ng-controller="JobtypesController">
+<section data-ng-controller="JobtypesController" data-ng-init="init()">
     <div class="page-header">
         <h1>New Jobtype</h1>
     </div>
@@ -8,15 +8,56 @@
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="name" id="name" class="form-control"
+                        placeholder="Name" required>
+                    </div>
+                    <label class="control-label" for="address">Address</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="address" id="address" class="form-control"
+                        placeholder="Address" required>
+                    </div>
+                    <label class="control-label">Fields</label>
+                    <div class="list-group">
+                        <div class="list-group-item" data-ng-repeat="field in jobtype.fields track by $index">
+                            <div class="list-group-item-text">
+                                <p>Name:
+                                    <span data-ng-bind="field.name"></span>
+                                    <br/>Description:
+                                    <span data-ng-bind="field.description"></span>
+                                    <br/>Type:
+                                    <span data-ng-bind="field.type"></span>
+                                </p>
+                                <a class="btn btn-primary" data-ng-click="removeFromFields()">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="control-label" for="addFieldtype">Fieldtype</label>
+                    <div class="controls">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <select name="addFieldtype" id="addFieldtype" data-ng-model="myFieldtype"
+                                data-ng-options="fieldtype.name for fieldtype in fieldtypes" required></select>
+                                <p>Description:
+                                    <span data-ng-bind="myFieldtype.description"></span>
+                                </p>
+                                <p>Type:
+                                    <span data-ng-bind="myFieldtype.type"></span>
+                                </p>
+                                <a class="btn btn-primary" data-ng-click="addToFields()" data-ng-show="myFieldtype">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
             </fieldset>
         </form>
     </div>

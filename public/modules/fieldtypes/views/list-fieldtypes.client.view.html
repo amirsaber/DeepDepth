@@ -11,6 +11,8 @@
 				<span data-ng-bind="fieldtype.user.displayName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="fieldtype.name"></h4>
+			<p class="list-group-item-text">Description: <span data-ng-bind="fieldtype.description"></span></p>
+			<p class="list-group-item-text">Type: <span data-ng-bind="fieldtype.type"></span></p>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!fieldtypes.$resolved || fieldtypes.length">
