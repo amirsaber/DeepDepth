@@ -234,7 +234,7 @@ angular.module('fieldtypes').run([
   'Menus',
   function (Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Fieldtypes', 'fieldtypes', 'dropdown', '/fieldtypes(/create)?');
+    Menus.addMenuItem('topbar', 'Fieldtypes', 'fieldtypes', 'dropdown', '/fieldtypes(/create)?', false, ['admin']);
     Menus.addSubMenuItem('topbar', 'fieldtypes', 'List Fieldtypes', 'fieldtypes');
     Menus.addSubMenuItem('topbar', 'fieldtypes', 'New Fieldtype', 'fieldtypes/create');
   }
@@ -268,15 +268,28 @@ angular.module('fieldtypes').controller('FieldtypesController', [
   'Fieldtypes',
   function ($scope, $stateParams, $location, Authentication, Fieldtypes) {
     $scope.authentication = Authentication;
+    //Fieldtype default types
+    $scope.types = [
+      'String',
+      'Integer',
+      'Boolean',
+      'Date'
+    ];
     // Create new Fieldtype
     $scope.create = function () {
       // Create new Fieldtype object
-      var fieldtype = new Fieldtypes({ name: this.name });
+      var fieldtype = new Fieldtypes({
+          name: this.name,
+          description: this.description,
+          type: this.type
+        });
       // Redirect after save
       fieldtype.$save(function (response) {
         $location.path('fieldtypes/' + response._id);
         // Clear form fields
         $scope.name = '';
+        $scope.description = '';
+        $scope.type = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -327,7 +340,7 @@ angular.module('jobtypes').run([
   'Menus',
   function (Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Jobtypes', 'jobtypes', 'dropdown', '/jobtypes(/create)?');
+    Menus.addMenuItem('topbar', 'Jobtypes', 'jobtypes', 'dropdown', '/jobtypes(/create)?', false, ['admin']);
     Menus.addSubMenuItem('topbar', 'jobtypes', 'List Jobtypes', 'jobtypes');
     Menus.addSubMenuItem('topbar', 'jobtypes', 'New Jobtype', 'jobtypes/create');
   }
@@ -359,17 +372,39 @@ angular.module('jobtypes').controller('JobtypesController', [
   '$location',
   'Authentication',
   'Jobtypes',
-  function ($scope, $stateParams, $location, Authentication, Jobtypes) {
+  'Fieldtypes',
+  function ($scope, $stateParams, $location, Authentication, Jobtypes, Fieldtypes) {
     $scope.authentication = Authentication;
+    //Get availble Fieldtypes
+    $scope.fieldtypes = Fieldtypes.query();
+    //Initialize a temp jobtype
+    $scope.init = function () {
+      $scope.jobtype = {};
+      $scope.jobtype.fields = [];
+    };
+    //remove item from fields
+    $scope.removeFromFields = function () {
+      $scope.jobtype.fields.splice(this.$index, 1);
+    };
+    //Add selected Fieldtype to fields
+    $scope.addToFields = function () {
+      $scope.jobtype.fields.push($scope.myFieldtype);
+    };
     // Create new Jobtype
     $scope.create = function () {
       // Create new Jobtype object
-      var jobtype = new Jobtypes({ name: this.name });
+      var jobtype = new Jobtypes({
+          name: this.name,
+          address: this.address,
+          fields: this.jobtype.fields
+        });
       // Redirect after save
       jobtype.$save(function (response) {
         $location.path('jobtypes/' + response._id);
         // Clear form fields
         $scope.name = '';
+        $scope.address = '';
+        $scope.jobtype.fields = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
