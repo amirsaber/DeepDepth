@@ -48,6 +48,8 @@ ApplicationConfiguration.registerModule('core');'use strict';
 // Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('fieldtypes');'use strict';
 // Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('graphtypes');'use strict';
+// Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('jobtypes');'use strict';
 // Use applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('queries');'use strict';
@@ -336,6 +338,103 @@ angular.module('fieldtypes').factory('Fieldtypes', [
   }
 ]);'use strict';
 // Configuring the Articles module
+angular.module('graphtypes').run([
+  'Menus',
+  function (Menus) {
+    // Set top bar menu items
+    Menus.addMenuItem('topbar', 'Graphtypes', 'graphtypes', 'dropdown', '/graphtypes(/create)?', false, ['admin']);
+    Menus.addSubMenuItem('topbar', 'graphtypes', 'List Graphtypes', 'graphtypes');
+    Menus.addSubMenuItem('topbar', 'graphtypes', 'New Graphtype', 'graphtypes/create');
+  }
+]);'use strict';
+//Setting up route
+angular.module('graphtypes').config([
+  '$stateProvider',
+  function ($stateProvider) {
+    // Graphtypes state routing
+    $stateProvider.state('listGraphtypes', {
+      url: '/graphtypes',
+      templateUrl: 'modules/graphtypes/views/list-graphtypes.client.view.html'
+    }).state('createGraphtype', {
+      url: '/graphtypes/create',
+      templateUrl: 'modules/graphtypes/views/create-graphtype.client.view.html'
+    }).state('viewGraphtype', {
+      url: '/graphtypes/:graphtypeId',
+      templateUrl: 'modules/graphtypes/views/view-graphtype.client.view.html'
+    }).state('editGraphtype', {
+      url: '/graphtypes/:graphtypeId/edit',
+      templateUrl: 'modules/graphtypes/views/edit-graphtype.client.view.html'
+    });
+  }
+]);'use strict';
+// Graphtypes controller
+angular.module('graphtypes').controller('GraphtypesController', [
+  '$scope',
+  '$stateParams',
+  '$location',
+  'Authentication',
+  'Graphtypes',
+  function ($scope, $stateParams, $location, Authentication, Graphtypes) {
+    $scope.authentication = Authentication;
+    // Create new Graphtype
+    $scope.create = function () {
+      // Create new Graphtype object
+      var graphtype = new Graphtypes({
+          name: this.name,
+          script: this.script
+        });
+      // Redirect after save
+      graphtype.$save(function (response) {
+        $location.path('graphtypes/' + response._id);
+        // Clear form fields
+        $scope.name = '';
+        $scope.script = '';
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Remove existing Graphtype
+    $scope.remove = function (graphtype) {
+      if (graphtype) {
+        graphtype.$remove();
+        for (var i in $scope.graphtypes) {
+          if ($scope.graphtypes[i] === graphtype) {
+            $scope.graphtypes.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.graphtype.$remove(function () {
+          $location.path('graphtypes');
+        });
+      }
+    };
+    // Update existing Graphtype
+    $scope.update = function () {
+      var graphtype = $scope.graphtype;
+      graphtype.$update(function () {
+        $location.path('graphtypes/' + graphtype._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Find a list of Graphtypes
+    $scope.find = function () {
+      $scope.graphtypes = Graphtypes.query();
+    };
+    // Find existing Graphtype
+    $scope.findOne = function () {
+      $scope.graphtype = Graphtypes.get({ graphtypeId: $stateParams.graphtypeId });
+    };
+  }
+]);'use strict';
+//Graphtypes service used to communicate Graphtypes REST endpoints
+angular.module('graphtypes').factory('Graphtypes', [
+  '$resource',
+  function ($resource) {
+    return $resource('graphtypes/:graphtypeId', { graphtypeId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);'use strict';
+// Configuring the Articles module
 angular.module('jobtypes').run([
   'Menus',
   function (Menus) {
@@ -373,14 +472,18 @@ angular.module('jobtypes').controller('JobtypesController', [
   'Authentication',
   'Jobtypes',
   'Fieldtypes',
-  function ($scope, $stateParams, $location, Authentication, Jobtypes, Fieldtypes) {
+  'Graphtypes',
+  function ($scope, $stateParams, $location, Authentication, Jobtypes, Fieldtypes, Graphtypes) {
     $scope.authentication = Authentication;
     //Get availble Fieldtypes
     $scope.fieldtypes = Fieldtypes.query();
+    //Get availble Graphtypes
+    $scope.graphtypes = Graphtypes.query();
     //Initialize a temp jobtype
     $scope.init = function () {
       $scope.jobtype = {};
       $scope.jobtype.fields = [];
+      $scope.jobtype.graphs = [];
     };
     //remove item from fields
     $scope.removeFromFields = function () {
@@ -390,13 +493,22 @@ angular.module('jobtypes').controller('JobtypesController', [
     $scope.addToFields = function () {
       $scope.jobtype.fields.push($scope.myFieldtype);
     };
+    //remove item from graphs
+    $scope.removeFromGraphs = function () {
+      $scope.jobtype.graphs.splice(this.$index, 1);
+    };
+    //Add selected Graphtype to graphs
+    $scope.addToGraphs = function () {
+      $scope.jobtype.graphs.push($scope.myGraphtype);
+    };
     // Create new Jobtype
     $scope.create = function () {
       // Create new Jobtype object
       var jobtype = new Jobtypes({
           name: this.name,
           address: this.address,
-          fields: this.jobtype.fields
+          fields: this.jobtype.fields,
+          graphs: this.jobtype.graphs
         });
       // Redirect after save
       jobtype.$save(function (response) {
@@ -404,7 +516,8 @@ angular.module('jobtypes').controller('JobtypesController', [
         // Clear form fields
         $scope.name = '';
         $scope.address = '';
-        $scope.jobtype.fields = '';
+        $scope.jobtype.fields = [];
+        $scope.jobtype.graphs = [];
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -487,8 +600,11 @@ angular.module('queries').controller('QueriesController', [
   '$location',
   'Authentication',
   'Queries',
-  function ($scope, $stateParams, $location, Authentication, Queries) {
+  'Jobtypes',
+  function ($scope, $stateParams, $location, Authentication, Queries, Jobtypes) {
     $scope.authentication = Authentication;
+    //Get availble Jobtype
+    $scope.jobtypes = Jobtypes.query();
     // Create new Query
     $scope.create = function () {
       // Create new Query object
