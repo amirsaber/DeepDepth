@@ -7,26 +7,30 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Jobtype = mongoose.model('Jobtype'),
 	Fieldtype = mongoose.model('Fieldtype'),
+	Graphtype = mongoose.model('Graphtype'),
 	_ = require('lodash');
 
 /**
  * Create a Jobtype
  */
 exports.create = function(req, res) {
-	var fields = [];
+	var fields = [],
+		graphs = [];
 	req.body.fields.forEach(function(element){
 		var field = new Fieldtype(element);
 		fields.push(field);
+	});
+	req.body.graphs.forEach(function(element){
+		var graph = new Graphtype(element);
+		graphs.push(graph);
 	});
 	var jobtype = new Jobtype({
 		name: req.body.name,
 		address: req.body.address,
 		user: req.user,
-		fields: fields
+		fields: fields,
+		graphs: graphs
 	});
-	// var jobtype = new Jobtype(req.body);
-	// jobtype.user = req.user;
-	// jobtype.fields.push(fields);
 
 	jobtype.save(function(err) {
 		if (err) {
@@ -89,7 +93,7 @@ exports.delete = function(req, res) {
  * List of Jobtypes
  */
 exports.list = function(req, res) {
-	Jobtype.find().sort('-created').populate('user', 'displayName').populate('fields').exec(function(err, jobtypes) {
+	Jobtype.find().sort('-created').populate('user', 'displayName').populate('fields').populate('graphs').exec(function(err, jobtypes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -105,7 +109,7 @@ exports.list = function(req, res) {
  * Jobtype middleware
  */
 exports.jobtypeByID = function(req, res, next, id) {
-	Jobtype.findById(id).populate('user', 'displayName').populate('fields').exec(function(err, jobtype) {
+	Jobtype.findById(id).populate('user', 'displayName').populate('fields').populate('graphs').exec(function(err, jobtype) {
 		if (err) return next(err);
 		if (!jobtype) return next(new Error('Failed to load Jobtype ' + id));
 		req.jobtype = jobtype;

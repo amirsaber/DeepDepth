@@ -23,6 +23,15 @@
 			        </p>
 			    </div>
 			</div>
+			<h5 class="list-group-item-heading">Graphs:</h5>
+			<div class="list-group">
+			    <div data-ng-repeat="graph in jobtype.graphs track by $index" class="list-group-item">
+			        <h6 class="list-group-item-heading" data-ng-bind="graph.name"></h6>
+			        <p class="list-group-item-text">
+			            Script: <span data-ng-bind="graph.script"></span><br/>
+			        </p>
+			    </div>
+			</div>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!jobtypes.$resolved || jobtypes.length">No Jobtypes yet, why don't you

@@ -3,18 +3,29 @@
 		<h1 data-ng-bind="jobtype.name"></h1>
 	</div>
 	<div class="list-group">
-		<p class="list-group-item-text">Address:
-			<span data-ng-bind="jobtype.address"></span>
-		</p>
-		<h5 class="list-group-item-heading">Fields:</h5>
-		<div class="list-group">
-			<div data-ng-repeat="field in jobtype.fields track by $index" class="list-group-item">
-				<h6 class="list-group-item-heading" data-ng-bind="field.name"></h6>
-				<p class="list-group-item-text">Description:
-					<span data-ng-bind="field.description"></span>
-					<br/>Type:
-					<span data-ng-bind="field.type"></span>
-				</p>
+		<div class="list-group-item">
+			<p class="list-group-item-text">Address:
+				<span data-ng-bind="jobtype.address"></span>
+			</p>
+			<h5 class="list-group-item-heading">Fields:</h5>
+			<div class="list-group">
+				<div data-ng-repeat="field in jobtype.fields track by $index" class="list-group-item">
+					<h6 class="list-group-item-heading" data-ng-bind="field.name"></h6>
+					<p class="list-group-item-text">Description:
+						<span data-ng-bind="field.description"></span>
+						<br/>Type:
+						<span data-ng-bind="field.type"></span>
+					</p>
+				</div>
+			</div>
+			<h5 class="list-group-item-heading">Graphs:</h5>
+			<div class="list-group">
+				<div data-ng-repeat="graph in jobtype.graphs track by $index" class="list-group-item">
+					<h6 class="list-group-item-heading" data-ng-bind="graph.name"></h6>
+					<p class="list-group-item-text">Script:
+						<span data-ng-bind="graph.script"></span>
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>

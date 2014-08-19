@@ -1,9 +1,12 @@
 'use strict';
 
 // Queries controller
-angular.module('queries').controller('QueriesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Queries',
-	function($scope, $stateParams, $location, Authentication, Queries ) {
+angular.module('queries').controller('QueriesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Queries', 'Jobtypes',
+	function($scope, $stateParams, $location, Authentication, Queries, Jobtypes ) {
 		$scope.authentication = Authentication;
+		
+		//Get availble Jobtype
+		$scope.jobtypes = Jobtypes.query();
 
 		// Create new Query
 		$scope.create = function() {

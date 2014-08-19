@@ -33,6 +33,21 @@
                             </div>
                         </div>
                     </div>
+                    <label class="control-label">Graphs</label>
+                    <div class="list-group">
+                        <div class="list-group-item" data-ng-repeat="graph in jobtype.graphs track by $index">
+                            <div class="list-group-item-text">
+                                <p>Name:
+                                    <span data-ng-bind="graph.name"></span>
+                                    <br/>Script:
+                                    <span data-ng-bind="graph.script"></span>
+                                </p>
+                                <a class="btn btn-primary" data-ng-click="removeFromGraphs()">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <label class="control-label" for="addFieldtype">Fieldtype</label>
                     <div class="controls">
                         <div class="list-group">
@@ -46,6 +61,21 @@
                                     <span data-ng-bind="myFieldtype.type"></span>
                                 </p>
                                 <a class="btn btn-primary" data-ng-click="addToFields()" data-ng-show="myFieldtype">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="control-label" for="addGraphtype">Graphtype</label>
+                    <div class="controls">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <select name="addGraphtype" id="addGraphtype" data-ng-model="myGraphtype"
+                                data-ng-options="graphtype.name for graphtype in graphtypes" required></select>
+                                <p>Script:
+                                    <span data-ng-bind="myGraphtype.script"></span>
+                                </p>
+                                <a class="btn btn-primary" data-ng-click="addToGraphs()" data-ng-show="myGraphtype">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </a>
                             </div>

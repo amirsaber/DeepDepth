@@ -10,14 +10,39 @@
                     <div class="controls">
                         <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
                     </div>
+                    <label class="control-label" for="selectJobtype">Jobtype</label>
+                    <div class="controls">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <select name="selectJobtype" id="selectJobtype" data-ng-model="myJobtype" data-ng-options="jobtype.name for jobtype in jobtypes" required></select>
+                                <p>Address:
+                                    <span data-ng-bind="myJobtype.address"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <label data-ng-show="myJobtype" class="control-label" for="fields">Fields</label>
+                    <div data-ng-show="myJobtype"  class="controls">
+                        <div class="list-group">
+                            <div class="list-group-item" data-ng-repeat="field in myJobtype.fields">
+                                <label for="field{{field.name}}" data-ng-bind="field.name"></label>
+                                <input data-ng-if="field.type === 'String'" type="text" id="field{{field.name}}" name="field{{field.name}}" />
+                                <input data-ng-if="field.type === 'Integer'" type="text" id="field{{field.name}}" name="field{{field.name}}" />
+                                <input data-ng-if="field.type === 'Date'" type="date" id="field{{field.name}}" name="field{{field.name}}" />
+                                <input data-ng-if="field.type === 'Boolean'" type="checkbox" id="field{{field.name}}" name="field{{field.name}}" />
+                                <p class="list-group-item-text">Description: <span data-ng-bind="field.description"></span></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-default">
+    </div>
+    <div data-ng-show="error" class="text-danger">
+        <strong data-ng-bind="error"></strong>
+    </div>
+    </fieldset>
+    </form>
     </div>
 </section>

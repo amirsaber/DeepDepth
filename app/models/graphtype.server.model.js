@@ -7,18 +7,19 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Query Schema
+ * Graphtype Schema
  */
-var QuerySchema = new Schema({
+var GraphtypeSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Query name',
+		required: 'Please fill Graphtype name',
 		trim: true
 	},
-	job: {
-		type: Schema.Types.ObjectId,
-		ref: 'Jobtype'
+	script: {
+		type: String,
+		default: '',
+		required: 'Please fill Graphtype script'
 	},
 	created: {
 		type: Date,
@@ -30,4 +31,4 @@ var QuerySchema = new Schema({
 	}
 });
 
-mongoose.model('Query', QuerySchema);
+mongoose.model('Graphtype', GraphtypeSchema);

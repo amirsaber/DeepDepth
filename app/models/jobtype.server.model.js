@@ -30,13 +30,13 @@ var JobtypeSchema = new Schema({
 		required: 'Please fill Job Type address',
 		trim: true
 	},
-	// fields: [{
-	// 	type: Schema.ObjectId,
-	// 	ref: 'Fieldtype'
-	// }],
 	fields: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Fieldtype'
+	}],
+	graphs: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Graphtype'
 	}],
 	created: {
 		type: Date,
@@ -49,3 +49,4 @@ var JobtypeSchema = new Schema({
 });
 
 mongoose.model('Jobtype', JobtypeSchema).schema.path('fields').validate(validateArrayLength, 'Please add at least one field');
+mongoose.model('Jobtype', JobtypeSchema).schema.path('graphs').validate(validateArrayLength, 'Please add at least one graph');
