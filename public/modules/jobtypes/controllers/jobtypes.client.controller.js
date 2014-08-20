@@ -45,7 +45,8 @@ function($scope, $stateParams, $location, Authentication, Jobtypes, Fieldtypes, 
 			name: this.name,
 			address: this.address,
 			fields: this.jobtype.fields,
-			graphs: this.jobtype.graphs
+			graphs: this.jobtype.graphs,
+			queryPattern: this.queryPattern
 		});
 
 		// Redirect after save
@@ -55,6 +56,7 @@ function($scope, $stateParams, $location, Authentication, Jobtypes, Fieldtypes, 
 			// Clear form fields
 			$scope.name = '';
 			$scope.address = '';
+			$scope.queryPattern = '';
 			$scope.jobtype.fields = [];
 			$scope.jobtype.graphs = [];
 		}, function(errorResponse) {

@@ -38,6 +38,12 @@ var JobtypeSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Graphtype'
 	}],
+	queryPattern:{
+		type: String,
+		default: '',
+		required: 'Please fill Job Type Query Pattern',
+		trim: true
+	},
 	created: {
 		type: Date,
 		default: Date.now

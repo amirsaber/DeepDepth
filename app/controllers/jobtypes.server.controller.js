@@ -28,6 +28,7 @@ exports.create = function(req, res) {
 		name: req.body.name,
 		address: req.body.address,
 		user: req.user,
+		queryPattern: req.body.queryPattern,
 		fields: fields,
 		graphs: graphs
 	});

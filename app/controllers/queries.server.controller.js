@@ -6,13 +6,23 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Query = mongoose.model('Query'),
+	JobType = mongoose.model('Jobtype'),
 	_ = require('lodash');
 
 /**
  * Create a Query
  */
 exports.create = function(req, res) {
-	var query = new Query(req.body);
+	var job;
+	if(req.body.job){
+		job = req.body.job._id;
+	}
+	var query = new Query({
+		name: req.body.name,
+		job: job,
+		fields: req.body.fields
+	});
+	
 	query.user = req.user;
 
 	query.save(function(err) {

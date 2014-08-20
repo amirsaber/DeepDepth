@@ -16,6 +16,11 @@
                         <input type="text" data-ng-model="address" id="address" class="form-control"
                         placeholder="Address" required>
                     </div>
+                    <label class="control-label" for="queryPattern">Query Pattern</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="queryPattern" id="queryPattern" class="form-control"
+                        placeholder="Query Pattern" required>
+                    </div>
                     <label class="control-label">Fields</label>
                     <div class="list-group">
                         <div class="list-group-item" data-ng-repeat="field in jobtype.fields track by $index">

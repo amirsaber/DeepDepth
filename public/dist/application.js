@@ -508,7 +508,8 @@ angular.module('jobtypes').controller('JobtypesController', [
           name: this.name,
           address: this.address,
           fields: this.jobtype.fields,
-          graphs: this.jobtype.graphs
+          graphs: this.jobtype.graphs,
+          queryPattern: this.queryPattern
         });
       // Redirect after save
       jobtype.$save(function (response) {
@@ -516,6 +517,7 @@ angular.module('jobtypes').controller('JobtypesController', [
         // Clear form fields
         $scope.name = '';
         $scope.address = '';
+        $scope.queryPattern = '';
         $scope.jobtype.fields = [];
         $scope.jobtype.graphs = [];
       }, function (errorResponse) {
@@ -605,15 +607,22 @@ angular.module('queries').controller('QueriesController', [
     $scope.authentication = Authentication;
     //Get availble Jobtype
     $scope.jobtypes = Jobtypes.query();
+    $scope.fields = [];
     // Create new Query
     $scope.create = function () {
-      // Create new Query object
-      var query = new Queries({ name: this.name });
+      // Create new Query object\
+      var query = new Queries({
+          name: this.name,
+          job: this.myJobtype,
+          fields: this.fields
+        });
       // Redirect after save
       query.$save(function (response) {
         $location.path('queries/' + response._id);
         // Clear form fields
         $scope.name = '';
+        $scope.myJobtype = {};
+        $scope.fields = [];
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -649,6 +658,10 @@ angular.module('queries').controller('QueriesController', [
     // Find existing Query
     $scope.findOne = function () {
       $scope.query = Queries.get({ queryId: $stateParams.queryId });
+    };
+    // On changing job type
+    $scope.jobChange = function () {
+      $scope.fields = [];
     };
   }
 ]);'use strict';
