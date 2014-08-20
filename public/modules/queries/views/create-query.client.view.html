@@ -27,7 +27,7 @@
                             <div class="list-group-item" data-ng-repeat="field in myJobtype.fields">
                                 <label for="field{{field.name}}" data-ng-bind="field.name"></label>
                                 <input data-ng-if="field.type === 'String'" type="text" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
-                                <input data-ng-if="field.type === 'Integer'" type="text" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
+                                <input data-ng-if="field.type === 'Integer'" type="number" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
                                 <input data-ng-if="field.type === 'Date'" type="date" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
                                 <input data-ng-if="field.type === 'Boolean'" type="checkbox" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
                                 <p class="list-group-item-text">Description: <span data-ng-bind="field.description"></span>
