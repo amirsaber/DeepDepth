@@ -6,7 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Query = mongoose.model('Query'),
-	JobType = mongoose.model('Jobtype'),
+	Fieldtype = mongoose.model('Fieldtype'),
 	_ = require('lodash');
 
 /**
@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var job;
-	if(req.body.job){
+	if (req.body.job) {
 		job = req.body.job._id;
 	}
 	var query = new Query({
@@ -22,7 +22,7 @@ exports.create = function(req, res) {
 		job: job,
 		fields: req.body.fields
 	});
-	
+
 	query.user = req.user;
 
 	query.save(function(err) {
@@ -30,7 +30,8 @@ exports.create = function(req, res) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(query);
 		}
 	});
@@ -47,16 +48,17 @@ exports.read = function(req, res) {
  * Update a Query
  */
 exports.update = function(req, res) {
-	var query = req.query ;
+	var query = req.query;
 
-	query = _.extend(query , req.body);
+	query = _.extend(query, req.body);
 
 	query.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(query);
 		}
 	});
@@ -66,14 +68,15 @@ exports.update = function(req, res) {
  * Delete an Query
  */
 exports.delete = function(req, res) {
-	var query = req.query ;
+	var query = req.query;
 
 	query.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
+		}
+		else {
 			res.jsonp(query);
 		}
 	});
@@ -82,13 +85,26 @@ exports.delete = function(req, res) {
 /**
  * List of Queries
  */
-exports.list = function(req, res) { Query.find().sort('-created').populate('user', 'displayName').exec(function(err, queries) {
+exports.list = function(req, res) {
+	Query.find().sort('-created').populate('user', 'displayName').populate('job').exec(function(err, queries) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
-		} else {
-			res.jsonp(queries);
+		}
+		else {
+			Fieldtype.populate(queries, {
+				path: 'job.fields',
+				model: 'Fieldtype'
+			}, function(err, queries) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+
+				res.jsonp(queries);
+			});
 		}
 	});
 };
@@ -96,11 +112,19 @@ exports.list = function(req, res) { Query.find().sort('-created').populate('user
 /**
  * Query middleware
  */
-exports.queryByID = function(req, res, next, id) { Query.findById(id).populate('user', 'displayName').exec(function(err, query) {
+exports.queryByID = function(req, res, next, id) {
+	Query.findById(id).populate('user', 'displayName').populate('job').exec(function(err, query) {
 		if (err) return next(err);
-		if (! query) return next(new Error('Failed to load Query ' + id));
-		req.query = query ;
-		next();
+		if (!query) return next(new Error('Failed to load Query ' + id));
+		Fieldtype.populate(query, {
+			path: 'job.fields',
+			model: 'Fieldtype'
+		}, function(err, query) {
+			if (err) return next(err);
+			if (!query) return next(new Error('Failed to load Query ' + id));
+			req.query = query;
+			next();
+		});
 	});
 };
 

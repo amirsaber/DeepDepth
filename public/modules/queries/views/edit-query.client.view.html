@@ -10,6 +10,31 @@
                     <div class="controls">
                         <input type="text" data-ng-model="query.name" id="name" class="form-control" placeholder="Name" required>
                     </div>
+                    <label class="control-label" for="job">Jobtype</label>
+                    <div class="controls">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <select name="job" id="job" data-ng-model="query.job" data-ng-change="jobChange()" data-ng-options="jobtype.name for jobtype in jobtypes track by jobtype.name" required></select>
+                                <p>Address:
+                                    <span data-ng-bind="query.job.address"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <label data-ng-show="query.job" class="control-label" for="fields">Fields</label>
+                    <div data-ng-show="query.job" class="controls">
+                        <div class="list-group">
+                            <div class="list-group-item" data-ng-repeat="field in query.job.fields">
+                                <label for="field{{field.name}}" data-ng-bind="field.name"></label>
+                                <input data-ng-if="field.type === 'String'" type="text" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
+                                <input data-ng-if="field.type === 'Integer'" type="number" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
+                                <input data-ng-if="field.type === 'Date'" type="date" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
+                                <input data-ng-if="field.type === 'Boolean'" type="checkbox" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
+                                <p class="list-group-item-text">Description: <span data-ng-bind="query.job.field.description"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">

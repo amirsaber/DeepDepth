@@ -1,9 +1,9 @@
-<section data-ng-controller="QueriesController">
+<section data-ng-controller="QueriesController" data-ng-init="init()">
     <div class="page-header">
         <h1>New Query</h1>
     </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create();" novalidate>
+        <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
@@ -14,7 +14,7 @@
                     <div class="controls">
                         <div class="list-group">
                             <div class="list-group-item">
-                                <select name="selectJobtype" id="selectJobtype" data-ng-model="myJobtype" data-ng-change="jobChange();" data-ng-options="jobtype.name for jobtype in jobtypes" required></select>
+                                <select name="selectJobtype" id="selectJobtype" data-ng-model="myJobtype" data-ng-change="jobChange()" data-ng-options="jobtype.name for jobtype in jobtypes" required></select>
                                 <p>Address:
                                     <span data-ng-bind="myJobtype.address"></span>
                                 </p>
@@ -26,10 +26,10 @@
                         <div class="list-group">
                             <div class="list-group-item" data-ng-repeat="field in myJobtype.fields">
                                 <label for="field{{field.name}}" data-ng-bind="field.name"></label>
-                                <input data-ng-if="field.type === 'String'" type="text" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
-                                <input data-ng-if="field.type === 'Integer'" type="number" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
-                                <input data-ng-if="field.type === 'Date'" type="date" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
-                                <input data-ng-if="field.type === 'Boolean'" type="checkbox" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="fields[$index]" required/>
+                                <input data-ng-if="field.type === 'String'" type="text" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
+                                <input data-ng-if="field.type === 'Integer'" type="number" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
+                                <input data-ng-if="field.type === 'Date'" type="date" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
+                                <input data-ng-if="field.type === 'Boolean'" type="checkbox" id="field{{field.name}}" name="field{{field.name}}" data-ng-model="query.fields[$index]" required/>
                                 <p class="list-group-item-text">Description: <span data-ng-bind="field.description"></span>
                                 </p>
                             </div>

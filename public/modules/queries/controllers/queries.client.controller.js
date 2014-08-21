@@ -7,7 +7,12 @@ angular.module('queries').controller('QueriesController', ['$scope', '$statePara
 
 		//Get availble Jobtype
 		$scope.jobtypes = Jobtypes.query();
-		$scope.fields = [];
+
+		//Initialize a temp query
+		$scope.init = function() {
+			$scope.query = {};
+			$scope.query.fields = [];
+		};
 
 		// Create new Query
 		$scope.create = function() {
@@ -15,7 +20,7 @@ angular.module('queries').controller('QueriesController', ['$scope', '$statePara
 			var query = new Queries({
 				name: this.name,
 				job: this.myJobtype,
-				fields: this.fields
+				fields: this.query.fields
 			});
 			// Redirect after save
 			query.$save(function(response) {
@@ -70,10 +75,10 @@ angular.module('queries').controller('QueriesController', ['$scope', '$statePara
 				queryId: $stateParams.queryId
 			});
 		};
-		
+
 		// On changing job type
 		$scope.jobChange = function() {
-			$scope.fields = [];
+			$scope.query.fields = [];
 		};
 	}
 ]);
