@@ -9,7 +9,9 @@ var mongoose = require('mongoose'),
 	ValidatorError = require('mongoose/lib/error/validator'),
 	Fieldtype = mongoose.model('Fieldtype'),
 	Jobtype = mongoose.model('Jobtype'),
-	request = require('request');
+	request = require('request'),
+	config = require('../../config/config');
+
 
 /**
  * Validation functions
@@ -41,6 +43,10 @@ var QuerySchema = new Schema({
 	dbJobId: {
 		type: String,
 		default: ''
+	},
+	status: {
+		type: String,
+		default: 'queued'
 	},
 	created: {
 		type: Date,
@@ -110,12 +116,13 @@ QuerySchema.pre('save', function(next) {
 						dbQuery = dbQuery.replace('{{' + query.job.fields[i].name + '}}', query.fields[i]);
 					}
 					request({
-						uri: 'http://api.treasuredata.com/v3/job/issue/hive/twitter_db',
+						uri: query.job.address,
 						method: 'POST',
 						headers: {
-							'AUTHORIZATION': 'TD1 4272/0aa77c546d2d91a2caf494ac34a64d9bf6a97008'
+							'AUTHORIZATION': 'TD1 ' + config.td
 						},
 						form: {
+							//TODO: Put it into job type
 							database: 'twitter_db',
 							query: dbQuery
 						}

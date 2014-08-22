@@ -3,6 +3,7 @@
 module.exports = function(app) {
 	var users = require('../../app/controllers/users');
 	var queries = require('../../app/controllers/queries');
+	var queryTask = require('../../app/tasks/queries');
 
 	// Queries Routes
 	app.route('/queries')

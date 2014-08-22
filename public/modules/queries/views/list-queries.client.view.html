@@ -4,16 +4,19 @@
     </div>
     <div class="list-group">
         <a data-ng-repeat="query in queries" data-ng-href="#!/queries/{{query._id}}" class="list-group-item">
-			<small class="list-group-item-text">
+            <small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="query.created | date:'medium'"></span>
 				by
 				<span data-ng-bind="query.user.displayName"></span>
 			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="query.name"></h4>
+            <h4 class="list-group-item-heading" data-ng-bind="query.name"></h4>
+            <p class="list-group-item-text">Job Type:<span data-ng-bind="query.job.name"></span></p>
+            <p data-ng-if="query.status!='success'" class="list-group-item-text alert alert-info">Status:<span data-ng-bind="query.status"></p>
+            <p data-ng-if="query.status='success'" class="list-group-item-text alert alert-success">Status:<span data-ng-bind="query.status"></span></p>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!queries.$resolved || queries.length">
-    	No Queries yet, why don't you <a href="/#!/queries/create">create one</a>?
+        No Queries yet, why don't you <a href="/#!/queries/create">create one</a>?
     </div>
 </section>

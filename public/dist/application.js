@@ -667,6 +667,10 @@ angular.module('queries').controller('QueriesController', [
     $scope.jobChange = function () {
       $scope.query.fields = [];
     };
+    //On changing graph type
+    $scope.graphChange = function () {
+      $scope.myGraph = this.myGraphType;
+    };
   }
 ]);'use strict';
 //Queries service used to communicate Queries REST endpoints

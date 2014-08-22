@@ -80,5 +80,10 @@ angular.module('queries').controller('QueriesController', ['$scope', '$statePara
 		$scope.jobChange = function() {
 			$scope.query.fields = [];
 		};
+		
+		//On changing graph type
+		$scope.graphChange = function() {
+			$scope.myGraph = this.myGraphType;
+		};
 	}
 ]);

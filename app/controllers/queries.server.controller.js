@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Query = mongoose.model('Query'),
 	Fieldtype = mongoose.model('Fieldtype'),
+	Graphtype = mongoose.model('Graphtype'),
 	_ = require('lodash');
 
 /**
@@ -65,6 +66,18 @@ exports.update = function(req, res) {
 };
 
 /**
+ * Update status of a Query
+ */
+exports.updateStatus = function(query, next) {
+	Query.findByIdAndUpdate(query._id, {
+		$set: {
+			status: query.status
+		}
+	}, next);
+};
+
+
+/**
  * Delete an Query
  */
 exports.delete = function(req, res) {
@@ -110,6 +123,32 @@ exports.list = function(req, res) {
 };
 
 /**
+ * List of Queries with Status other than success or error
+ */
+exports.findIncompletes = function(req, res, next) {
+	Query.find({
+		$and: [{
+			status: {
+				$ne: 'success'
+			}
+		}, {
+			status: {
+				$ne: 'error'
+			}
+		}, {
+			status: {
+				$ne: 'killed'
+			}
+		}]
+	}).sort('created').populate('user', 'displayName').populate('job').exec(function(err, queries) {
+		if (err) return next(err);
+		if (!queries) return next(new Error('Failed to load Incomplete Queries'));
+		req.queries = queries;
+		next();
+	});
+};
+
+/**
  * Query middleware
  */
 exports.queryByID = function(req, res, next, id) {
@@ -122,8 +161,15 @@ exports.queryByID = function(req, res, next, id) {
 		}, function(err, query) {
 			if (err) return next(err);
 			if (!query) return next(new Error('Failed to load Query ' + id));
-			req.query = query;
-			next();
+			Graphtype.populate(query, {
+				path: 'job.graphs',
+				model: 'Graphtype'
+			}, function(err, query) {
+				if (err) return next(err);
+				if (!query) return next(new Error('Failed to load Query ' + id));
+				req.query = query;
+				next();
+			});
 		});
 	});
 };
