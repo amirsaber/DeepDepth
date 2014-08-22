@@ -13,7 +13,8 @@
             <h4 class="list-group-item-heading" data-ng-bind="query.name"></h4>
             <p class="list-group-item-text">Job Type:<span data-ng-bind="query.job.name"></span>
             </p>
-            <p data-ng-if="query.status!=='success'" class="list-group-item-text alert alert-info">Status:<span data-ng-bind="query.status"></p>
+            <p data-ng-if="query.status!=='success'" class="list-group-item-text alert alert-info">Status:<span data-ng-bind="query.status"></span>
+            </p>
             <p data-ng-if="query.status==='success'" class="list-group-item-text alert alert-success">Status:<span data-ng-bind="query.status"></span>
             </p>
         </a>
