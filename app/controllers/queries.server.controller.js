@@ -8,7 +8,9 @@ var mongoose = require('mongoose'),
 	Query = mongoose.model('Query'),
 	Fieldtype = mongoose.model('Fieldtype'),
 	Graphtype = mongoose.model('Graphtype'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	request = require('request'),
+	config = require('../../config/config');
 
 /**
  * Create a Query
@@ -41,8 +43,35 @@ exports.create = function(req, res) {
 /**
  * Show the current Query
  */
-exports.read = function(req, res) {
-	res.jsonp(req.query);
+exports.read = function(req, res, next) {
+	if (req.query.status === 'success') {
+		var resultAddress = req.query.job.address.replace('issue/hive/twitter_db', '/result/' + req.query.dbJobId + '?format=json');
+		request({
+			uri: resultAddress,
+			method: 'GET',
+			headers: {
+				'AUTHORIZATION': 'TD1 ' + config.td
+			}
+		}, function(err, response, body) {
+			if (err) {
+				console.log(err);
+			}
+			else {
+				req.query = req.query.toObject();
+				body = body.split('\n');
+				req.query.result = [];
+				body.forEach(function(line) {
+					if (line !== '') {
+						req.query.result.push(JSON.parse(line));
+					}
+				});
+				res.jsonp(req.query);
+			}
+		});
+	}
+	else {
+		res.jsonp(req.query);
+	}
 };
 
 /**

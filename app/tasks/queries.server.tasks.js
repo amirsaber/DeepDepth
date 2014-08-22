@@ -26,7 +26,7 @@ new CronJob('*/10 * * * * *', function() {
                     headers: {
                         'AUTHORIZATION': 'TD1 ' + config.td
                     }
-                }, function(error, response, body) {
+                }, function(err, response, body) {
                     if (err) {
                         console.log(err);
                     }
