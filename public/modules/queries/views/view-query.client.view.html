@@ -8,9 +8,10 @@
 			</p>
 			<p class="list-group-item-text" data-ng-repeat="fields in query.job.fields"><strong><span data-ng-bind="fields.name"></span>: </strong><span data-ng-bind="query.fields[$index]"></span>
 			</p>
-			<p data-ng-if="query.status!=='success'" class="list-group-item-text alert alert-info">Status:<span data-ng-bind="query.status"></p>
-			<p data-ng-if="query.status==='success'" class="list-group-item-text alert alert-success">Status:<span data-ng-bind="query.status"></span>
-			</p>
+			<p data-ng-if="query.status!=='success'" class="list-group-item-text alert alert-info">Status:<span data-ng-bind="query.status"></span>
+            </p>
+            <p data-ng-if="query.status==='success'" class="list-group-item-text alert alert-success">Status:<span data-ng-bind="query.status"></span>
+            </p>
 		</div>
 		<div data-ng-if="query.status='success'" class="list-group-item">
 			<form>
@@ -22,7 +23,8 @@
 				</fieldset>
 			</form>
 		</div>
-		<div data-ng-if="myGraph" class="list-group-item"><span data-ng-bind="myGraph.name"></span></div>
+		<div data-ng-if="myGraph" class="list-group-item"><span data-ng-bind="myGraph.name"></span>
+		</div>
 	</div>
 	<div class="pull-right" data-ng-show="authentication.user.roles[1] == 'admin'">
 		<a class="btn btn-primary" href="/#!/queries/{{query._id}}/edit">
