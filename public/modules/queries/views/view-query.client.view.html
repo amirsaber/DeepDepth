@@ -8,8 +8,8 @@
 			</p>
 			<p class="list-group-item-text" data-ng-repeat="fields in query.job.fields"><strong><span data-ng-bind="fields.name"></span>: </strong><span data-ng-bind="query.fields[$index]"></span>
 			</p>
-			<p data-ng-if="query.status!='success'" class="list-group-item-text alert alert-info">Status:<span data-ng-bind="query.status"></p>
-			<p data-ng-if="query.status='success'" class="list-group-item-text alert alert-success">Status:<span data-ng-bind="query.status"></span>
+			<p data-ng-if="query.status!=='success'" class="list-group-item-text alert alert-info">Status:<span data-ng-bind="query.status"></p>
+			<p data-ng-if="query.status==='success'" class="list-group-item-text alert alert-success">Status:<span data-ng-bind="query.status"></span>
 			</p>
 		</div>
 		<div data-ng-if="query.status='success'" class="list-group-item">
