@@ -224,7 +224,7 @@ var mean = d3.mean(resultEntries, function(d){
 console.log(mean);
 var numberTop = 0;
 resultEntries.forEach(function(element) {
-    if (element.value > mean && numberTop < 8) {
+    if (element.value > mean && numberTop < 16) {
         numberTop++;
     }
 });
