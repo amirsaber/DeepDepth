@@ -215,6 +215,10 @@ d3.xml("http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg", "i
         .attr('id', 'usSvg');
     var usSvg = document.querySelector('#usSvg');
     usSvg.appendChild(xml.documentElement);
+    
+    d3.select('#AK').remove();
+    d3.select('#path57').remove();
+    d3.select('#HI').remove();
 
     result.entries().forEach(function(element) {
         d3.select('#' + element.key)
