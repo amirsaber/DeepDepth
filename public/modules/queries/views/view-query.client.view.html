@@ -23,7 +23,12 @@
 				</fieldset>
 			</form>
 		</div>
-		<div data-ng-if="myGraph" class="list-group-item"><span data-ng-bind="myGraph.name"></span>
+		<div data-ng-show="myGraph" class="list-group-item">
+			<span data-ng-bind="myGraph.name"></span>
+			<div id="scriptDiv">
+				<script id="graphScript" type="text/javascript" src=""></script>
+			</div>
+			<div id="svgDiv"></div>
 		</div>
 	</div>
 	<div class="pull-right" data-ng-show="authentication.user.roles[1] == 'admin'">

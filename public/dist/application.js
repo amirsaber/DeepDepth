@@ -670,6 +670,19 @@ angular.module('queries').controller('QueriesController', [
     //On changing graph type
     $scope.graphChange = function () {
       $scope.myGraph = this.myGraphType;
+      //Remove Previous script
+      var graphScript = angular.element(document.querySelector('#graphScript'));
+      graphScript.remove();
+      var svgDiv = angular.element(document.querySelector('#svgDiv'));
+      svgDiv.children().remove();
+      //Create script tag and append it
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = $scope.myGraph.script;
+      script.id = 'graphScript';
+      //Get script div and append it
+      var scriptDiv = angular.element(document.querySelector('#scriptDiv'));
+      scriptDiv.append(script);
     };
   }
 ]);'use strict';
