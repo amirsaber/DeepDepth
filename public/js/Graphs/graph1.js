@@ -1,5 +1,6 @@
 'use strict';
 
+//
 var stateTitle = [{
     'name': 'Alabama',
     'abbreviation': 'AL'
@@ -197,10 +198,47 @@ var consolidateToState = function(data) {
     return result;
 };
 
+//
 var svgDiv = document.querySelector('#svgDiv');
 var resultData = angular.element(svgDiv).scope().query.result;
-var result = consolidateToState(resultData);
+var resultEntries = consolidateToState(resultData).entries();
+resultEntries.sort(function(a, b) {
+    if (a.value < b.value) {
+        return 1;
+    }
+    else if (a.value > b.value) {
+        return -1;
+    }
+    else {
+        return 0;
+    }
+});
 
+//
+var max = d3.max(resultEntries, function(d) {
+    return d.value;
+});
+var numberTop = 0;
+resultEntries.forEach(function(element) {
+    if (element.value > (max * 0.05) && numberTop < 6) {
+        numberTop++;
+    }
+});
+
+var topR = resultEntries.slice(0, numberTop);
+var other = resultEntries.slice(numberTop, resultEntries.length);
+var objectOther = {
+    key: "other",
+    value: 0
+};
+other.forEach(function(element) {
+    objectOther.value = objectOther.value + element.value;
+});
+if (objectOther.value > 0) {
+    topR.push(objectOther);
+}
+
+//
 var width = 960,
     height = 500,
     radius = Math.min(width, height) / 2;
@@ -213,7 +251,17 @@ var arc = d3.svg.arc()
     .innerRadius(0);
 
 var pie = d3.layout.pie()
-    .sort(null)
+    .sort(function(a, b) {
+        if (a.value < b.value) {
+            return 1;
+        }
+        else if (a.value > b.value) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    })
     .value(function(d) {
         return d.value;
     });
@@ -226,7 +274,7 @@ var svg = d3.select('#svgDiv').append('svg')
     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
 var g = svg.selectAll('.arc')
-    .data(pie(result.entries()))
+    .data(pie(topR))
     .enter().append('g');
 
 g.append('path')

@@ -204,8 +204,16 @@ var result = consolidateToState(resultData);
 var width = 959,
     height = 593;
 
-var color = d3.scale.ordinal()
-    .range(['#000000', '#000014', '#000029', '#00003D', '#000052', '#000066', '#00007A', '#00008F', '#1919D1', '#3333D6', '#4D4DDB', '#6666E0', '#8080E6', '#9999EB', '#B2B2F0', '#CCCCF5', '#E6E6FA', '#E6E6FA']);
+var max = d3.max(resultData, function(d) {
+    return d[2];
+});
+var min = d3.min(resultData, function(d) {
+    return d[2];
+});
+
+var color = d3.scale.linear()
+    .domain([min, max])
+    .range(["lightblue", "darkblue"]);
 
 d3.xml("http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg", "image/svg+xml", function(xml) {
     var svg = d3.select('#svgDiv').append('svg')
@@ -215,7 +223,7 @@ d3.xml("http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg", "i
         .attr('id', 'usSvg');
     var usSvg = document.querySelector('#usSvg');
     usSvg.appendChild(xml.documentElement);
-    
+
     d3.select('#AK').remove();
     d3.select('#path57').remove();
     d3.select('#HI').remove();
