@@ -218,9 +218,13 @@ resultEntries.sort(function(a, b) {
 var max = d3.max(resultEntries, function(d) {
     return d.value;
 });
+var mean = d3.mean(resultEntries, function(d){
+    return d.value;
+});
+console.log(mean);
 var numberTop = 0;
 resultEntries.forEach(function(element) {
-    if (element.value > (max * 0.05) && numberTop < 6) {
+    if (element.value > mean && numberTop < 8) {
         numberTop++;
     }
 });
