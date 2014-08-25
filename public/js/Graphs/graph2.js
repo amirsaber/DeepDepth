@@ -201,7 +201,7 @@ var svgDiv = document.querySelector('#svgDiv');
 var resultData = angular.element(svgDiv).scope().query.result;
 var result = consolidateToState(resultData);
 
-var width = 959,
+var width = 969,
     height = 593;
 
 var max = d3.max(resultData, function(d) {
@@ -220,7 +220,20 @@ d3.xml("http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg", "i
         .attr('width', width)
         .attr('height', height)
         .attr('class', 'center-block')
-        .attr('id', 'usSvg');
+        .attr('id', 'usSvg')
+        .attr('viewBox', '0 0 969 593')
+        .attr('perserveAspectRatio', 'xMinYMid');
+
+    var chart = $("#usSvg"),
+        aspect = chart.width() / chart.height(),
+        container = chart.parent().parent().parent();
+    console.log(container.width());
+    angular.element(window).on("resize", function() {
+        var targetWidth = container.width();
+        chart.attr("width", targetWidth);
+        chart.attr("height", Math.round(targetWidth / aspect));
+    }).trigger("resize");
+
     var usSvg = document.querySelector('#usSvg');
     usSvg.appendChild(xml.documentElement);
 

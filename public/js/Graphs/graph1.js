@@ -1,5 +1,5 @@
 'use strict';
-
+console.log('graph1');
 //
 var stateTitle = [{
     'name': 'Alabama',
@@ -215,13 +215,9 @@ resultEntries.sort(function(a, b) {
 });
 
 //
-var max = d3.max(resultEntries, function(d) {
+var mean = d3.mean(resultEntries, function(d) {
     return d.value;
 });
-var mean = d3.mean(resultEntries, function(d){
-    return d.value;
-});
-console.log(mean);
 var numberTop = 0;
 resultEntries.forEach(function(element) {
     if (element.value > mean && numberTop < 16) {
@@ -273,9 +269,22 @@ var pie = d3.layout.pie()
 var svg = d3.select('#svgDiv').append('svg')
     .attr('width', width)
     .attr('height', height)
+    .attr('id', 'chart')
+    .attr('viewBox', '0 0 960 500')
+    .attr('perserveAspectRatio', 'xMinYMid')
     .attr('class', 'center-block')
     .append('g')
     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+var chart = $("#chart"),
+    aspect = chart.width() / chart.height(),
+    container = chart.parent().parent().parent();
+    console.log(container.width());
+angular.element(window).on("resize", function() {
+    var targetWidth = container.width();
+    chart.attr("width", targetWidth);
+    chart.attr("height", Math.round(targetWidth / aspect));
+}).trigger("resize");
 
 var g = svg.selectAll('.arc')
     .data(pie(topR))
