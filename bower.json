@@ -14,6 +14,9 @@
     "angular-bootstrap": "~0.11.0",
     "angular-ui-utils": "~0.1.1",
     "angular-ui-router": "~0.2.10",
-    "d3": "~3.4.11"
+    "d3": "~3.4.11",
+    "jquery": "~2.1.1",
+    "jquery-ui": "~1.11.1",
+    "jqrangeslider": "~5.7.0"
   }
 }

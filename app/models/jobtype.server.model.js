@@ -26,7 +26,6 @@ var JobtypeSchema = new Schema({
 	},
 	address: {
 		type: String,
-		default: '',
 		required: 'Please fill Job Type address',
 		trim: true
 	},

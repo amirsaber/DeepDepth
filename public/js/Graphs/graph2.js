@@ -200,22 +200,24 @@ var consolidateToState = function(data) {
 var svgDiv = document.querySelector('#svgDiv');
 var resultData = angular.element(svgDiv).scope().query.result;
 var result = consolidateToState(resultData);
+var resultDataFinal = result.entries();
 
 var width = 969,
     height = 593;
 
-var max = d3.max(resultData, function(d) {
-    return d[2];
+var max = d3.max(resultDataFinal, function(d) {
+    return d.value;
 });
-var min = d3.min(resultData, function(d) {
-    return d[2];
+var min = d3.min(resultDataFinal, function(d) {
+    return d.value;
 });
+
 
 var color = d3.scale.linear()
     .domain([min, max])
-    .range(["lightblue", "darkblue"]);
+    .range(['lightblue', 'darkblue']);
 
-d3.xml("http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg", "image/svg+xml", function(xml) {
+d3.xml('http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg', 'image/svg+xml', function(xml) {
     var svg = d3.select('#svgDiv').append('svg')
         .attr('width', width)
         .attr('height', height)
@@ -224,15 +226,14 @@ d3.xml("http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg", "i
         .attr('viewBox', '0 0 969 593')
         .attr('perserveAspectRatio', 'xMinYMid');
 
-    var chart = $("#usSvg"),
+    var chart = $('#usSvg'),
         aspect = chart.width() / chart.height(),
         container = chart.parent().parent().parent();
-    console.log(container.width());
-    angular.element(window).on("resize", function() {
+    angular.element(window).on('resize', function() {
         var targetWidth = container.width();
-        chart.attr("width", targetWidth);
-        chart.attr("height", Math.round(targetWidth / aspect));
-    }).trigger("resize");
+        chart.attr('width', targetWidth);
+        chart.attr('height', Math.round(targetWidth / aspect));
+    }).trigger('resize');
 
     var usSvg = document.querySelector('#usSvg');
     usSvg.appendChild(xml.documentElement);

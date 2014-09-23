@@ -19,6 +19,7 @@ module.exports = {
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.js',
+				'public/lib/jquery-ui/jquery-ui.js',
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-cookies/angular-cookies.js', 
@@ -28,7 +29,8 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-				'public/lib/d3/d3.js'
+				'public/lib/d3/d3.js',
+				'public/lib/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js'
 			]
 		},
 		css: [

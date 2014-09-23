@@ -228,7 +228,7 @@ resultEntries.forEach(function(element) {
 var topR = resultEntries.slice(0, numberTop);
 var other = resultEntries.slice(numberTop, resultEntries.length);
 var objectOther = {
-    key: "other",
+    key: 'other',
     value: 0
 };
 other.forEach(function(element) {
@@ -276,15 +276,15 @@ var svg = d3.select('#svgDiv').append('svg')
     .append('g')
     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
-var chart = $("#chart"),
+var chart = $('#chart'),
     aspect = chart.width() / chart.height(),
     container = chart.parent().parent().parent();
     console.log(container.width());
-angular.element(window).on("resize", function() {
+angular.element(window).on('resize', function() {
     var targetWidth = container.width();
-    chart.attr("width", targetWidth);
-    chart.attr("height", Math.round(targetWidth / aspect));
-}).trigger("resize");
+    chart.attr('width', targetWidth);
+    chart.attr('height', Math.round(targetWidth / aspect));
+}).trigger('resize');
 
 var g = svg.selectAll('.arc')
     .data(pie(topR))
