@@ -30,7 +30,7 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/d3/d3.js',
-				'public/lib/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js'
+				'public/js/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js'
 			]
 		},
 		css: [

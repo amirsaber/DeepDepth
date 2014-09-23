@@ -21,7 +21,7 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.min.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
 				'public/lib/d3/d3.min.js',
-				'public/lib/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js'
+				'public/js/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
