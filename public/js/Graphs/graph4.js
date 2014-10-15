@@ -2,7 +2,8 @@
 
 $('head').append('<link rel="stylesheet" href="js/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
 $('#svgDiv').append('<div id="slider"></div>');
-$('#svgDiv').append('<div id="playDiv"><button type="button" class="btn btn-default btn-primary" onClick="play()">Play</button></div><div id="playDiv"><button type="button" class="btn btn-default btn-primary" onClick="reset()">Reset</button></div>');
+$('#svgDiv').append('<div id="playDiv" style="float:left"><button type="button" id="play" class="btn btn-default btn-primary" onClick="start()"><span class="glyphicon glyphicon-play"></span>Play</button></div>');
+$('#svgDiv').append('<div id="playDiv"><button type="button" id="reset" class="btn btn-default btn-primary" onClick="reset()"><span class="glyphicon glyphicon-stop"></span>Stop</button></div>');
 
 var stateTitle = [{
     'name': 'Alabama',
@@ -284,7 +285,6 @@ var draw = function(firstDate, lastDate, data) {
     var min = d3.min(resultData.entries(), function(d) {
         return d.value;
     });
-    console.log(max + ',' + min);
 
 
     var color = d3.scale.linear()
@@ -370,18 +370,31 @@ $('#slider').on('valuesChanged', function(e, data) {
 });
 
 ////////////////////////////////////////////////////////////////////////////
+var isplay = true;
 var play = function() {
+    $('#play').prop('disabled', true);
     var dateValues = $('#slider').dateRangeSlider('values');
     setTimeout(function() {
-        $('#slider').dateRangeSlider('values', dateValues.max, new Date(dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay));
-        if (dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay < maxDate.valueOf()) {
-            play();
-        }
-        else {
-            $('#slider').dateRangeSlider('values', dateValues.max, maxDate);
-        }
-    }, 1000);
+            if (isplay) {
+                $('#slider').dateRangeSlider('values', dateValues.max, new Date(dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay));
+                if (dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay < maxDate.valueOf()) {
+                    play();
+                }
+                else {
+                    $('#slider').dateRangeSlider('values', dateValues.max, maxDate);
+                    $('#play').prop('disabled', false);
+                }
+            }
+        },
+        1000);
 };
-var reset = function(){
+var start = function() {
+    isplay = true;
+    $('#slider').dateRangeSlider('values', minDate, new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay));
+    play();
+};
+var reset = function() {
+    isplay = false;
+    $('#play').prop('disabled', false);
     $('#slider').dateRangeSlider('values', minDate, new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay));
 };
