@@ -382,3 +382,6 @@ var play = function() {
         }
     }, 1000);
 };
+var reset = function(){
+    $('#slider').dateRangeSlider('values', minDate, new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay));
+};
