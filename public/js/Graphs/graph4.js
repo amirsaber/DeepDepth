@@ -2,6 +2,7 @@
 
 $('head').append('<link rel="stylesheet" href="js/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
 $('#svgDiv').append('<div id="slider"></div>');
+$('#svgDiv').append('<div id="playDiv"><button type="button" class="btn btn-default btn-primary" onClick="play()">Play</button></div>');
 
 var stateTitle = [{
     'name': 'Alabama',
@@ -295,11 +296,7 @@ var draw = function(firstDate, lastDate, data) {
 
     resultData.entries().forEach(function(element) {
         d3.select('#' + element.key)
-            .transition()
-            .duration(500)
-            .style('fill', function() {
-                return '#d3d3d3';
-            }).delay(10).transition().duration(1000)
+            .transition().duration(800)
             .style('fill', function() {
                 if (element.value === 0) {
                     return '#d3d3d3';
@@ -309,6 +306,7 @@ var draw = function(firstDate, lastDate, data) {
     });
 };
 
+var intervalDay = 1;
 $('#slider').dateRangeSlider({
     bounds: {
         min: new Date(minDate),
@@ -316,8 +314,9 @@ $('#slider').dateRangeSlider({
     },
     defaultValues: {
         min: new Date(minDate),
-        max: new Date(maxDate)
+        max: new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay)
     },
+    enabled: false,
     scales: [{
         first: function(value) {
             return value;
@@ -368,8 +367,14 @@ $('#slider').on('valuesChanged', function(e, data) {
     //console.log('Something moved. min: ' + data.values.min + ' max: ' + data.values.max);
     draw(new Date(data.values.min), new Date(data.values.max), result);
 });
-/*
 
-
-
-*/
+////////////////////////////////////////////////////////////////////////////
+var play = function() {
+    var dateValues = $('#slider').dateRangeSlider('values');
+    setTimeout(function() {
+        $('#slider').dateRangeSlider('values', dateValues.max, new Date(dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay));
+        if (dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay <= maxDate.valueOf()) {
+            play();
+        }
+    }, 1000);
+};
