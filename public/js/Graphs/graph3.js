@@ -238,13 +238,12 @@ var result = consolidateToDate(resultData);
 
 var minDate = d3.min(result.entries(), function(d) {
     var date = new Date(d.key);
-    return Date.UTC(date.getFullYear(), date.getMonth(), date.getDay());
+    return date;
 });
 var maxDate = d3.max(result.entries(), function(d) {
     var date = new Date(d.key);
-    return Date.UTC(date.getFullYear(), date.getMonth(), date.getDay());
+    return date;
 });
-
 
 var width = 969,
     height = 593;

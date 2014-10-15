@@ -239,11 +239,11 @@ var result = consolidateToDate(resultData);
 
 var minDate = d3.min(result.entries(), function(d) {
     var date = new Date(d.key);
-    return Date.UTC(date.getFullYear(), date.getMonth(), date.getDay());
+    return date;
 });
 var maxDate = d3.max(result.entries(), function(d) {
     var date = new Date(d.key);
-    return Date.UTC(date.getFullYear(), date.getMonth(), date.getDay());
+    return date;
 });
 
 
@@ -284,6 +284,7 @@ var draw = function(firstDate, lastDate, data) {
     var min = d3.min(resultData.entries(), function(d) {
         return d.value;
     });
+    console.log(max + ',' + min);
 
 
     var color = d3.scale.linear()
@@ -306,7 +307,7 @@ var draw = function(firstDate, lastDate, data) {
     });
 };
 
-var intervalDay = 1;
+var intervalDay = 7;
 $('#slider').dateRangeSlider({
     bounds: {
         min: new Date(minDate),
@@ -373,8 +374,11 @@ var play = function() {
     var dateValues = $('#slider').dateRangeSlider('values');
     setTimeout(function() {
         $('#slider').dateRangeSlider('values', dateValues.max, new Date(dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay));
-        if (dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay <= maxDate.valueOf()) {
+        if (dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay < maxDate.valueOf()) {
             play();
+        }
+        else{
+            $('#slider').dateRangeSlider('values', dateValues.max, maxDate);
         }
     }, 1000);
 };
