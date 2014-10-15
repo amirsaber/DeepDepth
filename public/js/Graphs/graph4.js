@@ -2,7 +2,7 @@
 
 $('head').append('<link rel="stylesheet" href="js/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
 $('#svgDiv').append('<div id="slider"></div>');
-$('#svgDiv').append('<div id="playDiv"><button type="button" class="btn btn-default btn-primary" onClick="play()">Play</button></div>');
+$('#svgDiv').append('<div id="playDiv"><button type="button" class="btn btn-default btn-primary" onClick="play()">Play</button></div><div id="playDiv"><button type="button" class="btn btn-default btn-primary" onClick="reset()">Reset</button></div>');
 
 var stateTitle = [{
     'name': 'Alabama',
@@ -359,7 +359,7 @@ d3.xml('http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg', 'i
 
     var usSvg = document.querySelector('#usSvg');
     usSvg.appendChild(xml.documentElement);
-    draw(new Date(minDate), new Date(maxDate), result);
+    draw(new Date(minDate), new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay), result);
 });
 
 
@@ -377,7 +377,7 @@ var play = function() {
         if (dateValues.max.valueOf() + (1000 * 3600 * 24) * intervalDay < maxDate.valueOf()) {
             play();
         }
-        else{
+        else {
             $('#slider').dateRangeSlider('values', dateValues.max, maxDate);
         }
     }, 1000);
