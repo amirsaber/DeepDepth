@@ -21,6 +21,9 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.min.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
 				'public/lib/d3/d3.min.js',
+				'public/js/highcharts/highcharts.js',
+				'public/js/highcharts/map.js',
+				'public/js/highcharts/us-all-mainland.js',
 				'public/js/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js'
 			]
 		},
