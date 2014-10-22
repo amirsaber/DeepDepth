@@ -1,9 +1,12 @@
 'use strict';
 
-$('head').append('<link rel="stylesheet" href="js/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
+$('head').append('<link rel="stylesheet" href="lib/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
 $('#svgDiv').append('<div id="slider"></div>');
 $('#svgDiv').append('<div id="playDiv" style="float:left"><button type="button" id="play" class="btn btn-default btn-primary" onClick="start()"><span class="glyphicon glyphicon-play"></span>Play</button></div>');
 $('#svgDiv').append('<div id="playDiv"><button type="button" id="reset" class="btn btn-default btn-primary" onClick="reset()"><span class="glyphicon glyphicon-stop"></span>Stop</button></div>');
+$('#svgDiv').append('<style>.loading {	margin-top: 10em; text-align: center; color: gray; }</style>');
+$('#svgDiv').append('<div id="mapcontainer" style="height: 500px; max-width: 600px; margin: 0 auto; "></div>');
+
 
 var stateTitle = [{
     'name': 'Alabama',
@@ -183,24 +186,6 @@ var stateTitle = [{
     'name': 'Wyoming',
     'abbreviation': 'WY'
 }];
-/*var consolidateToState = function(data) {
-    var result = d3.map();
-    data.forEach(function(element) {
-        stateTitle.forEach(function(state) {
-            if (element[0].indexOf(state.name + ', USA') > -1 || element[0].indexOf(', ' + state.abbreviation) > -1) {
-                if (result.has(state.abbreviation)) {
-                    var cnt = result.get(state.abbreviation);
-                    cnt = cnt + element[2];
-                    result.set(state.abbreviation, cnt);
-                }
-                else {
-                    result.set(state.abbreviation, element[2]);
-                }
-            }
-        });
-    });
-    return result;
-};*/
 
 var consolidateToDate = function(data) {
     var result = d3.map();
@@ -238,6 +223,8 @@ var svgDiv = document.querySelector('#svgDiv');
 var resultData = angular.element(svgDiv).scope().query.result;
 var result = consolidateToDate(resultData);
 
+
+var intervalDay = 7;
 var minDate = d3.min(result.entries(), function(d) {
     var date = new Date(d.key);
     return date;
@@ -246,68 +233,10 @@ var maxDate = d3.max(result.entries(), function(d) {
     var date = new Date(d.key);
     return date;
 });
-
-
-var width = 969,
-    height = 593;
-
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 
-var draw = function(firstDate, lastDate, data) {
-    var resultData = d3.map();
-    stateTitle.forEach(function(element) {
-        resultData.set(element.abbreviation, 0);
-    });
-    data.entries().forEach(function(element) {
-        var date2 = new Date(element.key);
-        firstDate.setDate(firstDate.getDate() - 1);
 
-        if (firstDate < date2 && date2 < lastDate) {
-            element.value.entries().forEach(function(element) {
-                if (resultData.has(element.key)) {
-                    var cnt = resultData.get(element.key);
-                    cnt = cnt + element.value;
-                    resultData.set(element.key, cnt);
-                }
-                else {
-                    resultData.set(element.key, element.value);
-                }
-            });
-        }
-    });
-
-
-
-    var max = d3.max(resultData.entries(), function(d) {
-        return d.value;
-    });
-    var min = d3.min(resultData.entries(), function(d) {
-        return d.value;
-    });
-
-
-    var color = d3.scale.linear()
-        .domain([min, max])
-        .range(['#deebf7', '#00003f']);
-
-    d3.select('#AK').remove();
-    d3.select('#path57').remove();
-    d3.select('#HI').remove();
-
-    resultData.entries().forEach(function(element) {
-        d3.select('#' + element.key)
-            .transition().duration(800)
-            .style('fill', function() {
-                if (element.value === 0) {
-                    return '#d3d3d3';
-                }
-                return color(element.value);
-            });
-    });
-};
-
-var intervalDay = 7;
 $('#slider').dateRangeSlider({
     bounds: {
         min: new Date(minDate),
@@ -338,30 +267,89 @@ $('#slider').dateRangeSlider({
     }]
 });
 
-d3.xml('http://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map.svg', 'image/svg+xml', function(xml) {
-    var svg = d3.select('#svgDiv').append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .attr('class', 'center-block')
-        .attr('id', 'usSvg')
-        .attr('viewBox', '0 0 969 593')
-        .attr('perserveAspectRatio', 'xMinYMid');
+var draw = function(firstDate, lastDate, data) {
+    var resultData = d3.map();
+    stateTitle.forEach(function(element) {
+        resultData.set('us-' + element.abbreviation.toLowerCase(), 0);
+    });
+    data.entries().forEach(function(element) {
+        var date2 = new Date(element.key);
+        firstDate.setDate(firstDate.getDate() - 1);
 
-    var chart = $('#usSvg'),
-        aspect = chart.width() / chart.height(),
-        container = chart.parent().parent().parent();
+        if (firstDate < date2 && date2 < lastDate) {
+            element.value.entries().forEach(function(element) {
+                if (resultData.has('us-' + element.key.toLowerCase())) {
+                    var cnt = resultData.get('us-' + element.key.toLowerCase());
+                    cnt = cnt + element.value;
+                    resultData.set('us-' + element.key.toLowerCase(), cnt);
+                }
+                else {
+                    resultData.set('us-' + element.key.toLowerCase(), element.value);
+                }
+            });
+        }
+    });
 
-    angular.element(window).on('resize', function() {
-        var targetWidth = container.width();
-        chart.attr('width', targetWidth);
-        chart.attr('height', Math.round(targetWidth / aspect));
-    }).trigger('resize');
+    var r1 = [];
+    resultData.forEach(function(key, value) {
+        r1.push({
+            'hc-key': key,
+            'value': value
+        });
+    });
 
-    var usSvg = document.querySelector('#usSvg');
-    usSvg.appendChild(xml.documentElement);
-    draw(new Date(minDate), new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay), result);
-});
+    var chart = $('#mapcontainer').highcharts();
+    console.log(chart);
+    if (chart) {
+        chart.series[0].setData(r1);
+    }
+    else {
+        $('#mapcontainer').highcharts('Map', {
 
+            title: {
+                text: 'Number of Tweets per state'
+            },
+
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+
+            colorAxis: {
+                min: 0
+            },
+            
+            legend: {
+                title: {
+                    text: 'Number of Tweets in state'
+                }
+            },
+
+            series: [{
+                data: r1,
+                mapData: Highcharts.maps['countries/us/custom/us-all-mainland'],
+                joinBy: 'hc-key',
+                name: 'Number of Tweets',
+                states: {
+                    hover: {
+                        color: '#BADA55'
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
+            }]
+        });
+    }
+};
+
+draw(new Date(minDate), new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay), result);
 
 $('#slider').on('valuesChanged', function(e, data) {
     //$('#usSvg').remove();
@@ -369,7 +357,6 @@ $('#slider').on('valuesChanged', function(e, data) {
     draw(new Date(data.values.min), new Date(data.values.max), result);
 });
 
-////////////////////////////////////////////////////////////////////////////
 var isplay = true;
 var play = function() {
     $('#play').prop('disabled', true);
@@ -398,3 +385,7 @@ var reset = function() {
     $('#play').prop('disabled', false);
     $('#slider').dateRangeSlider('values', minDate, new Date(minDate.valueOf() + (1000 * 3600 * 24) * intervalDay));
 };
+
+setTimeout(function(){
+    $(window).resize();
+},500);

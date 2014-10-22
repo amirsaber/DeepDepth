@@ -1,6 +1,6 @@
 'use strict';
 
-$('head').append('<link rel="stylesheet" href="js/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
+$('head').append('<link rel="stylesheet" href="lib/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
 $('#svgDiv').append('<div id="slider"></div>');
 
 var stateTitle = [{

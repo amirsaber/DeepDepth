@@ -30,7 +30,10 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/d3/d3.js',
-				'public/js/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js'
+				'public/lib/highcharts/highcharts.js',
+				'public/lib/highcharts/map.js',
+				'public/lib/highcharts/us-all-mainland.js',
+				'public/lib/jqrangeslider/dest/jQAllRangeSliders-withRuler-min.js',
 			]
 		},
 		css: [
