@@ -1,6 +1,6 @@
 'use strict';
 
-$('head').append('<link rel="stylesheet" href="lib/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
+$('head').append('<link rel="stylesheet" href="js/jqrangeslider/dest/css/iThing-min.css" type="text/css" />');
 $('#svgDiv').append('<div id="slider"></div>');
 $('#svgDiv').append('<div id="playDiv" style="float:left"><button type="button" id="play" class="btn btn-default btn-primary" onClick="start()"><span class="glyphicon glyphicon-play"></span>Play</button></div>');
 $('#svgDiv').append('<div id="playDiv"><button type="button" id="reset" class="btn btn-default btn-primary" onClick="reset()"><span class="glyphicon glyphicon-stop"></span>Stop</button></div>');
