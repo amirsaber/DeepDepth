@@ -1,0 +1,903 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2014.10.16)  20 NOV 2014 13:56
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\makeatletter\def\HCode{\futurelet\HCode\HChar}\def\HChar{\ifx"\HCode\def\HCo
+de"##1"{\Link##1}\expandafter\HCode\else\expandafter\Link\fi}\def\Link#1.a.b.c.
+{\g@addto@macro\@documentclasshook{\RequirePackage[#1,html]{tex4ht}}\let\HCode\
+documentstyle\def\documentstyle{\let\documentstyle\HCode\expandafter\def\csname
+ tex4ht\endcsname{#1,html}\def\HCode####1{\documentstyle[tex4ht,}\@ifnextchar[{
+\HCode}{\documentstyle[tex4ht]}}}\makeatother\HCode xhtml,ooffice.a.b.c.\input 
+ main.tex
+(./main.tex (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/generic/tex4ht/tex4ht.sty
+version 2008-10-27-17:23
+Package: tex4ht 
+--------------------------------------
+--- Note --- for _ at preamble, use the command line option `early_'
+--------------------------------------
+--------------------------------------
+--- Note --- for ^ at preamble, use the command line option `early^'
+--------------------------------------
+\tmp:toks=\toks14
+)
+(/usr/share/texmf/tex/generic/tex4ht/usepackage.4ht
+version 2009-05-21-09:32
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+\lst@mode=\count88
+\lst@gtempboxa=\box26
+\lst@token=\toks16
+\lst@length=\count89
+\lst@currlwidth=\dimen103
+\lst@column=\count90
+\lst@pos=\count91
+\lst@lostspace=\dimen104
+\lst@width=\dimen105
+\lst@newlines=\count92
+\lst@lineno=\count93
+\lst@maxwidth=\dimen106
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
+\c@lstnumber=\count94
+\lst@skipnumbers=\count95
+\lst@framebox=\box27
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2013/08/26 1.5b listings configuration
+))
+Package: listings 2013/08/26 1.5b (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: dvips.def on input line 130.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
+
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is not detected.
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode is ignored in DVI mode.
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2012/05/28 v1.2 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+
+
+Package auxhook Warning: Cannot patch \document,
+(auxhook)                using \AtBeginDocument instead.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+)
+\@linkdim=\dimen107
+\Hy@linkcounter=\count96
+\Hy@pagecounter=\count97
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count98
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4319.
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count99
+
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen108
+\Fld@menulength=\count100
+\Field@Width=\dimen109
+\Fld@charsize=\dimen110
+\Field@toks=\toks17
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring ON on input line 6313.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count101
+
+
+Package hyperref Message: Stopped early.
+
+)
+
+Package hyperref Message: Driver: htex4ht.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/htex4ht.def
+File: htex4ht.def 2012/11/06 v6.83m Hyperref driver for TeX4ht
+Package hyperref Info: tex4ht is already loaded.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+)
+\Gin@req@height=\dimen111
+\Gin@req@width=\dimen112
+)
+(/usr/share/texmf/tex/generic/tex4ht/tex4ht.4ht
+version 2009-01-07-07:11
+--------------------------------------
+--- Note --- for additional information, use the command line option `info'
+--------------------------------------
+
+::::::::::::::::::::::::::::::::::::::::::
+ TeX4ht info is available in the log file 
+::::::::::::::::::::::::::::::::::::::::::
+) (/usr/share/texmf/tex/generic/tex4ht/tex4ht.sty
+version 2008-10-27-17:23
+
+--- needs --- tex4ht main ---
+\tmp:cnt=\count102
+\openout15 = `main.tmp'.
+
+(./main.tmp)
+\tmp:dim=\skip43
+ (./main.xref)
+\:refout=\write3
+\openout3 = `main.xref'.
+
+ (/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+)
+--------------------------------------
+--- Note --- for marking of the base font, use the command line option `fonts+'
+
+--------------------------------------
+--------------------------------------
+--- Note --- for non active _, use the command line option `no_'
+--------------------------------------
+--------------------------------------
+--- Note --- for _ of catcode 13, use the command line option `_13'
+--------------------------------------
+--------------------------------------
+--- Note --- for non active ^, use the command line option `no^'
+--------------------------------------
+--------------------------------------
+--- Note --- for ^ of catcode 13, use the command line option `^13'
+--------------------------------------
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+--------------------------------------
+--- Note --- for end notes instead of footnotes, use the command line option `e
+ndnotes'
+--------------------------------------
+--------------------------------------
+--- Note --- to request links from the tables of contents, use the command line
+ option from `TocLink'
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+)
+\:tokwrite=\toks18
+\:tokpage=\toks19
+--------------------------------------
+--- Note --- for back links to toc, use the command line option `sections+'
+--------------------------------------
+--------------------------------------
+--- Note --- for linear crosslinks of pages, use the command line option `next'
+
+--------------------------------------
+\openout15 = `main.4ct'.
+
+\:tocout=\write4
+\openout4 = `main.4tc'.
+
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/latex.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+--------------------------------------
+--- Note --- for enumerated list elements with valued data, use the command lin
+e option `enumerate+'
+--------------------------------------
+--------------------------------------
+--- Note --- to hide clickable index and bibliography references use the comman
+d line option `hidden-ref'
+--------------------------------------
+\tmp:bx=\box28
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+--------------------------------------
+--- Note --- for tab-based layoutof equation environment use the command line o
+ption `tab-eq'
+--------------------------------------
+))
+(/usr/share/texmf/tex/generic/tex4ht/fontmath.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+ [1
+
+]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 1375.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 1375.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 1375.
+ [2] [3] [4] [5] [6]
+[7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
+[22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]
+[37] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47] [48]
+--------------------------------------
+--- Note --- for sources failing to produce clean mathml code, try the command 
+line option `mathml-'
+--------------------------------------
+ [49] [50] [51]
+[52] [53]) (/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/report.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+--------------------------------------
+--- Note --- for a degraded bibliography friendlier for conversion to .doc, use
+ the command line option `bib-'
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/listings.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+--------------------------------------
+--- Note --- to ensure proper alignments use fixed size fonts (see listings.dtx
+)
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/color.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/dvips.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/dvipsnam.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/ifthen.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/hyperref.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count103
+)
+(/usr/share/texmf/tex/generic/tex4ht/nameref.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+LaTeX Info: Redefining \autoref on input line 99.
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/pd1enc.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/url.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+--------------------------------------
+--- Note --- for URL encoding within href use the command line option `url-enc'
+; for hyperlink-less entry use the command line option `url-'
+--------------------------------------
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/graphicx.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/graphics.4ht
+version 2009-05-21-09:32
+
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+))
+(/usr/share/texmf/tex/generic/tex4ht/ooffice.4ht
+version 2009-06-11-09:32
+)
+(/usr/share/texmf/tex/generic/tex4ht/unicode.4ht
+version 2009-02-23-20:45
+)
+(/usr/share/texmf/tex/generic/tex4ht/mathml.4ht
+version 2009-04-18-11:08
+)
+(/usr/share/texmf/tex/generic/tex4ht/ooffice-mml.4ht
+version 2009-06-11-09:32
+)) (./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 47.
+LaTeX Font Info:    ... okay on input line 47.
+\c@lstlisting=\count104
+\AtBeginShipoutBox=\box29
+Package hyperref Info: Link coloring ON on input line 47.
+LaTeX Info: Redefining \ref on input line 47.
+LaTeX Info: Redefining \pageref on input line 47.
+LaTeX Info: Redefining \nameref on input line 47.
+ [1]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 49.
+
+[1] (./main.4ct) [1] (./main.4ct) [2
+
+]
+Chapter 1.
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+[3
+
+] [4] [5] [6] [7]
+Chapter 2.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 121.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 121.
+ [8
+
+] [9] [10
+
+]
+l.144 --- TeX4ht warning --- Cannot determine size of graphic in ./images/major
+components.jpg (no BoundingBox) ---
+l. 144 --- needs --- ./images/majorcomponents.jpg ---
+[11
+
+] [12
+
+] [13
+
+]
+l.166 --- TeX4ht warning --- Cannot determine size of graphic in ./images/users
+_register.jpg (no BoundingBox) ---
+l. 166 --- needs --- ./images/users_register.jpg ---
+[14
+
+] [15
+
+] [16
+
+]
+l.177 --- TeX4ht warning --- Cannot determine size of graphic in ./images/Users
+_login.jpg (no BoundingBox) ---
+l. 177 --- needs --- ./images/Users_login.jpg ---
+[17
+
+] [18
+
+] [19
+
+]
+l.189 --- TeX4ht warning --- Cannot determine size of graphic in ./images/datar
+elation.jpg (no BoundingBox) ---
+l. 189 --- needs --- ./images/datarelation.jpg ---
+[20
+
+] [21
+
+] [22
+
+]
+l.199 --- TeX4ht warning --- Cannot determine size of graphic in ./images/admin
+use.jpg (no BoundingBox) ---
+l. 199 --- needs --- ./images/adminuse.jpg ---
+[23
+
+] [24
+
+] [25] [26] [27
+
+] [28
+
+] [29
+
+] [30
+
+] [31
+
+] [32
+
+] [33
+
+]
+Overfull \hbox (8428.42337pt too wide) in paragraph at lines 354--398
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][]  
+ []
+
+[34
+
+] [35
+
+] [36
+
+] [37
+
+] [38
+
+] [39
+
+] [40
+
+] [41
+
+] [42
+
+] [43
+
+] [44
+
+] [45
+
+] [46
+
+] [47
+
+] [48]
+[49] [50
+
+]
+l.693 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_fi
+rstpage.png (no BoundingBox) ---
+l. 693 --- needs --- ./images/dd_firstpage.png ---
+[51
+
+] [52
+
+] [53
+
+]
+l.705 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_re
+gister.png (no BoundingBox) ---
+l. 705 --- needs --- ./images/dd_register.png ---
+[54
+
+] [55
+
+] [56
+
+]
+l.715 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_lo
+gin.png (no BoundingBox) ---
+l. 715 --- needs --- ./images/dd_login.png ---
+[57
+
+] [58
+
+] [59
+
+]
+l.727 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_af
+terlogin.png (no BoundingBox) ---
+l. 727 --- needs --- ./images/dd_afterlogin.png ---
+[60
+
+]
+
+LaTeX Warning: Reference `fig:dd_listfieldtype' on page 61 undefined on input l
+ine 733.
+
+[61
+
+] [62
+
+]
+l.738 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_li
+stfieldtypes.png (no BoundingBox) ---
+l. 738 --- needs --- ./images/dd_listfieldtypes.png ---
+[63
+
+] [64
+
+] [65
+
+]
+l.746 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_ne
+wfieldtype.png (no BoundingBox) ---
+l. 746 --- needs --- ./images/dd_newfieldtype.png ---
+[66
+
+] [67
+
+] [68
+
+]
+l.756 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_vi
+ewfieldtype.png (no BoundingBox) ---
+l. 756 --- needs --- ./images/dd_viewfieldtype.png ---
+[69
+
+] [70
+
+] [71
+
+]
+l.764 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_ed
+itfieldtype.png (no BoundingBox) ---
+l. 764 --- needs --- ./images/dd_editfieldtype.png ---
+[72
+
+] [73
+
+] [74
+
+]
+l.776 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_ed
+itcreatequery.png (no BoundingBox) ---
+l. 776 --- needs --- ./images/dd_editcreatequery.png ---
+[75
+
+] [76
+
+] [77
+
+]
+l.786 --- TeX4ht warning --- Cannot determine size of graphic in ./images/dd_vi
+ewquery.png (no BoundingBox) ---
+l. 786 --- needs --- ./images/dd_viewquery.png ---
+[78
+
+] [79
+
+]
+Chapter 3.
+[80
+
+] [81
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 875.
+ [82]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 875.
+ (./main.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 875.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 875.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 875.
+ ) 
+Here is how much of TeX's memory you used:
+ 10675 strings out of 493305
+ 146191 string characters out of 6139896
+ 380788 words of memory out of 5000000
+ 13875 multiletter control sequences out of 15000+600000
+ 12561 words of font info for 44 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 37i,6n,40p,2794b,1262s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on main.dvi (137 pages, 330056 bytes).

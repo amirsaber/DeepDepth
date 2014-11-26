@@ -1,0 +1,386 @@
+\documentclass[a4paper,11pt]{report}
+\title{DeepDepth \\ An Approach To Visualize Twitter Tweets}
+\author{AmirSaber Sharifi}
+\date{October 2014}
+\pagestyle{headings}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{ifthen}
+\usepackage{hyperref}
+
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\newboolean{includeMemo}
+\setboolean{includeMemo}{true} % boolvar=true or false
+
+\newcommand{\memo}[1]{
+  \ifthenelse {\boolean{includeMemo}}{\medskip\noindent\fbox{\begin{minipage}[b]{\dimexpr\linewidth-1em}#1\end{minipage}}\medskip\newline}
+}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\listoffigures
+
+\chapter{Introduction}
+
+\section{Social Networks}
+
+\memo{WY: I like what you wrote a lot better. But it is useful to have a formal definition of social networks that you will use throughout your project. Maybe start your intro with the following paragraphs.
+
+And then write a paragraph about what are social networks used for. Creating online communities of common interests, to share information in a community, ...? Use Twitter an example here. How do people share information? How do people create a community.
+
+And then write a paragraph about the importance of social networks from the organizations' perspective. Use Twitter here again as an example. Give stats on how many tweets are there. How it can be useful, etc.
+
+WY: I want you to incorporate this information with the above section. So, combine Sections 1.1 and 1.2 together.
+
+\begin{itemize}
+\item Explain why Twitter is important
+\item What does it do?
+\item What can we do with these data?
+\item Give examples or use cases for how \& why analyzing its data is important
+\end{itemize}
+
+\begin{itemize}
+\item Briefly define social networks and their usages
+\end{itemize}
+}
+
+A \emph{social network} is a “structure of relationships linking \emph{social actors}” (Marsden 2000:2727) or “the set of actors and the ties among them” (Wasserman and Faust 1994). Relationships or ties are the basic building blocks of human experience, mapping the connections that individuals have to one another (Pescosolido 1991)\cite{socialnetworkdef}. Social Networks are typically defined as a social structure made up of a set of social actors, who can be individuals or organizations, and a set of \emph{dyadic ties} between these actors. Being friends, relatives or colleges are examples of possible dyadic ties.
+
+\memo{done \begin{itemize}
+\item First two sentences above: They are too informal. Remove them. \item Third sentence: formally define social networks by including a reference for it.
+\item Fourth sentence: Before this sentence, you need to define what does ``social actors'' mean.
+\end{itemize}}
+
+As the world becomes more interconnected through the \emph{World Wide Web}, social networks are becoming more relevant through World Wide Web. When these relations happen through World Wide Web they are called \emph{Social Web}. In general, Social Web is a set of relationships that link people over the World Wide Web\cite{socialwebw3}. Social Web covers the design and develop of software or web pages that encourage social interactions using Word Wide Web. Examples of some Social Web implementation can be games, education and social networking websites. Facebook, Google Plus, Tumbler and Twitter can be named as examples of social networking websites.
+
+\memo{Done ``world wide web'' is first used before it is italicized. Also, keep consistent. Either the first letters are always capitalized or always lower case. Same comment for ``Social Web''. And when you use ``Web,'' it is unclear which one you are referring to. 
+}
+
+Depend on the social networking website, social actors can be individuals, organizations and groups and social dyadic ties between these actors also depends on the social networking website. As an example in Twitter, both individuals and organizations can have accounts and they can interact with other actors by following others, posting a message, replying to other actor messages and re-post a message that has been originally posted by other actor.
+
+These social networking websites can get benefits to individuals and organizations. As an individual, making friends, chatting, posting photos and having social interactions in general can be expected as a benefit of a social networking website. Creating online communities so users with common interests can join and socialized around the topic or find old school friends on these websites are some other benefits of social web for individuals.
+
+On the other hand organization can use social networking websites to reach their audiences easier. They can establish communities and pages to reach more audiences and even use smart advertisement tools to advertise their message to specific group of people. By looking at trends and hit rate of their posts they can make better decisions for their future activities or products. These are some examples of benefits for organizations while a lot more can be imagined using social network websites and related analytic tools designed for them.
+
+Each social network could be analyzed with different perspectives. One can be analyzing social network structures to identify patterns and examine network dynamics. The other can be analyzing social network data. These data can be the message that a user posts or a color they choose as background or even time of the day users are active on social networks.
+
+Twitter is one of the famous social networking website. Users in Twitter can read and post 140 character short messages that are called \emph{tweets}. Twitter provide various ways of posting a tweet like using their web site, application or text messages. It's established on March 2006 and since then it grows fast between users\cite{twitterstat}. There are about 284 million active users on Twitter. Users on Twitter post average of 6,000 tweets per second which correspond to 350,000 tweets per minute and 500 million tweets per day\cite{twittercompany}. Twitter also supports more than 35 languages. This is a substantial amount of data that can be used in different analyses.
+
+\memo{Done Add reference to sentences with stats.. like 284 million active suers, 6000 tweets per second, etc. References should not be footnotes, but they should be proper references. Talk to me if you are unclear.}
+
+Twitter provides a substantial amount of information of each tweet. Information like user number of tweets, user profile color, language and etc. These information can be useful also. One example can be looking at relation between profile color of users and their tweets about committing suicides. By implementing an appropriate tool one can analyze Twitter tweets, or any other social networking websites, in different perspectives and get useful and meaningful results. For instance by watching and monitoring tweets which contains symptoms of a disease over time, origin of a disease could be found or even prevent the next possible epidemic.
+
+\section{DeepDepth}
+
+\memo{
+\begin{itemize}
+\item Explain DeepDepth goals
+\item Why this project is important?
+\end{itemize}
+}
+
+Our goal in this master project is to design a system called DeepDepth to help users analyze social network data without having vast knowledge of computer science. Users should be able to login, request their process and get the result. Since using social network websites is growing, various entities such as researchers, laboratories and industries found social network websites a good resource of information. Noticing the importance of social network websites on our life and benefits that a good analytic tool could give us, idea of DeepDepth shaped.
+
+\memo{Not sure!! Formalize say that your goal in this MS project is to design a system, called DeepDepth, to blablabla...}
+
+DeepDepth is an application that built to cover a part of social network websites analytic. It's goal is to provide a platform for developers, administrators and users to expand usage of social network data. By using DeepDepth users, without having a specific knowledge of computer, can initiate tailored queries and get visualized meaningful results. DeepDepth is modular, expandable and manageable by administrator which means an administrator or a developer can add query types, graphs or even new social network source into the platform. In the first iteration of the platform, Twitter is considered as the main source of data, although other sources can be added to project later.
+
+\section{Related works}
+
+\memo{
+\begin{itemize}
+\item Introduce other similar systems
+\item How this project differs from them
+\end{itemize}
+}
+
+Here are some other similar systems available on web that do analytic on social network data. Some of those systems are as follow:
+
+\paragraph{Orgnet.com SNA}
+Social Network Analysis (SNA) is a tool that does mapping and measuring of relationships and flows between actors. It provides mathematical and visual analysis of social network and calculate different degrees for each node such as betweenness and closeness.\cite{orgnet}
+
+\paragraph{Twazzup} A monitoring tool to show users each time their keyword is mentioned in a tweet.\cite{twazzup}
+
+\paragraph{Twitscoop} was a real-time visualization tool that could tank tweet words based on how frequently they are used.\cite{twitscoop}
+
+\paragraph{TweetPsych} is a web application that uses linguistic analysis algorithms to create a profile for a person based on what they have been tweeted on Twitter.\cite{tweetpsych}
+
+\paragraph{Tweeps} analyzes the content of user's tweets and make statistic for that specific user. This service is currently down.\cite{tweeps}
+
+\paragraph{Twitonomy} analyzes activity of a user in twitter. It can gives some general numbers like average number of tweets per day or users most mentioned and active hours and days. \cite{twitonomy}
+
+Most twitter Monitoring and Analytics tool are not working any more because of Twitter change in their API policy which doesn't let third party apps to have access to all tweets using their API. Companies which want to have access to all tweets should go into a contract with Twitter\cite{twitterfirehose}.
+
+DeapDepth is different from these examples in essence that DeepDepth is more general. It's a platform that administrator of it can add graphs, query types and etc so users will be able to use different kinds of analytic and visualizations. It's more dynamic that means DeepDepth can also get connected to different data sources and do analyzes on them. These data sources can be Facebook, Google+ or any other social network in future.
+
+\section{Challenges}
+
+\begin{itemize}
+\item What are the challenges that the project faced
+\item How the project tackled those challenges
+\end{itemize}
+
+To implement DeepDepth there were some challenges. This challenges happened in different aspect of project. For instance in gathering data, storing data, processing data and visualizing the result.
+
+The first step in analyzing a data is the data and gather it. Since DeepDepth is a modular application, it can use any Hive database as it source of analyzes. For Twitter scenario gathering data has been done by using Twitter Official client for developers which is called HBC. It's a client for a stream API that receive a sample of all tweets. Since HBC should be an always running process it's running in a PaaS named Heroku\cite{herokuadd}. Heroku is also the service that help storing the data using its Treasure Data\cite{treasuredataadd} api.
+
+Processing data was a challenge that could be handled in various ways. One can suggest using Apache Storm\cite{apachestormadd} which results in a real time analysis. Because of required resources to do real time processing, DeepDepth is using an on demand processing. MapReduce is the technique that is used to process a Hive database entries.
+
+After the process phase results need to be visualized. To be able to have a modular application a framework of drawing charts and graphs should be considered so administrator and developers can later add graphs to the project easily. So in DeepDepth Visualizing data part is implemented using D3.JS\cite{d3jsadd} library which is a graph framework that is able to draw specific charts and graphs and also can be programmed to draw custom graphs and charts. By using D3.Js a lot of ready to use charts are available to use in DeepDepth and developer or administrator can also add other graph types to it.
+
+\chapter{DeepDepth}
+
+\memo{
+\begin{itemize}
+\item Implementation of server and client sides using Test Driven Development
+\end{itemize}
+}
+
+\section{High-Level Description}
+
+\subsection{Components}
+
+\memo{WY: How about combining Chapters 2 and 3 and call it DeepDepth. Then, you have a section called "High-Level Description", which is your Section 2.1 now, and then you have another section called "Implementation Details" which has the subsections on Server and Client. Then, within these subsections, you briefly describe the technology that you use, why you chose to use it, and how you use it. 
+
+\begin{itemize}
+\item What are the programmer work space and environment provided for this project.
+\item What are the components in this project and briefly describe them
+\item How those components are related and how they interact
+\item Work flow Diagram
+\item Data flow Diagram
+\item Use Cases, what are user types and how different users see the project and how they use this software
+\end{itemize}
+}
+
+\subsection{Technologies}
+
+\memo{
+\begin{itemize}
+\item Describe the technology that have been used in this project for each component
+\item More detail into each component and how they interact with each other
+\end{itemize}
+}
+
+\section{Implementation}
+
+\subsection{Server}
+
+\memo{
+\begin{itemize}
+\item What is the server side and what it is doing
+\item How components in server side have been implemented
+\end{itemize}
+}
+
+\subsubsection{Environments}
+
+\memo{
+\begin{itemize}
+\item What are the development environments (Production, Development and Test)
+\item How they have been implemented in this project
+\item Examples of codes
+\end{itemize}
+}
+
+\subsubsection{Models}
+
+\memo{
+\begin{itemize}
+\item What are Models in this project
+\item how they are related
+\item examples of implementation
+\end{itemize}
+}
+
+\subsubsection{Controllers}
+
+\memo{
+\begin{itemize}
+\item what are the controllers
+\item how they have been implemented
+\end{itemize}
+}
+
+\subsubsection{Routes}
+
+\memo{
+\begin{itemize}
+\item What are server routes
+\item How my code handle routes
+\end{itemize}
+}
+
+\subsubsection{Tasks}
+
+\memo{
+\begin{itemize}
+\item how tasks are implemented in deepdepth
+\end{itemize}
+}
+
+\subsubsection{Views}
+
+\memo{
+\begin{itemize}
+\item implementation of views
+\end{itemize}
+}
+
+\subsubsection{Tests}
+
+\memo{
+\begin{itemize}
+\item Test types implemented for server side
+\item how they are implemented
+\end{itemize}
+}
+
+\subsection{Client}
+
+\memo{
+\begin{itemize}
+\item Client side implementation
+\end{itemize}
+}
+
+\subsubsection{Modules}
+
+\memo{
+\begin{itemize}
+\item what are the modules on client side
+\end{itemize}
+}
+
+\subsubsection{Config}
+
+\memo{
+\begin{itemize}
+\item how configuration of modules programmed
+\end{itemize}
+}
+
+\subsubsection{Services}
+
+\memo{
+\begin{itemize}
+\item describe client side services implemented for models
+\end{itemize}
+}
+
+\subsubsection{Views}
+
+\memo{
+\begin{itemize}
+\item implementation of CRUD views for different modules
+\end{itemize}
+}
+
+\subsubsection{Tests}
+
+\memo{
+\begin{itemize}
+\item Describe Tests implemented for client side
+\end{itemize}
+}
+
+\chapter{Summary and Future Works}
+
+\memo{WY: This part is definitely needed. It basically summarizes what your system is about, why you think it is cool, and you can add future work here. Also, List of Figures is usually before Chapter 1 right in front of the document.
+
+\begin{itemize}
+\item Talking about summary of project and it's achievements(I am not sure if this part is needed or what should I put in here.) 
+\end{itemize}
+
+\begin{itemize}
+\item How this projects can be improved in future
+\item nice to have features
+\end{itemize}
+}
+
+\begin{thebibliography}{9}
+
+\bibitem{socialnetworkdef}
+	BERNICE A. PESCOSOLIDO
+    \url{http://www.uk.sagepub.com/leonguerrero4e/study/materials/reference/05434_socnet.pdf}
+    \emph{THE SOCIOLOGY OF SOCIAL NETWORKS}
+    
+\bibitem{socialwebw3}
+  Halpin, Harry; Tuffield, Mischa.
+  \emph{"A Standards-based, Open and Privacy-aware Social Web"}
+  W3C Social Web Incubator Group Report 6th December 2010 Report. W3C Incubator Group Report. Retrieved 6/8/2011
+    
+\bibitem{twitterstat}
+	\url{http://www.internetlivestats.com/twitter-statistics/}
+    
+\bibitem{twittercompany}
+	\url{https://about.twitter.com/company}
+    
+\bibitem{orgnet}
+	\url{http://www.orgnet.com/sna.html}
+    
+\bibitem{twazzup}
+	\url{http://www.twazzup.com/}
+
+\bibitem{twitscoop}
+	\url{http://twitscoop.com/}
+    
+\bibitem{tweetpsych}
+	\url{http://tweetpsych.com/}
+    
+\bibitem{tweeps}
+	\url{http://www.tweeps.com/}
+    
+\bibitem{twitonomy}
+	\url{http://www.twitonomy.com/}
+    
+\bibitem{twitterfirehose}
+	\url{http://www.brightplanet.com/2013/06/twitter-firehose-vs-twitter-api-whats-the-difference-and-why-should-you-care/}
+
+\bibitem{herokuadd}
+	\url{https://www.heroku.com/}
+    
+\bibitem{treasuredataadd}
+	\url{http://www.treasuredata.com/}
+
+\bibitem{apachestormadd}
+	\url{https://storm.apache.org/}
+    
+\bibitem{d3jsadd}
+	\url{http://d3js.org/}
+    
+
+\end{thebibliography}
+
+\end{document}
